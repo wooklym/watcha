@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>회원가입 :: 왓챠</title>
+
+<link
+	href="https://d12hfz37g51hrt.cloudfront.net/assets/join_login-55ecff41d05bdf1b989cf93dfaa27527.css"
+	media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body class="intro">
+	<div id="contents">
+		<div class="login_background"></div>
+		<div id="simple_logo_header">
+			<div class="logo_container">
+			</div>
+		</div>
+		<div class='movable first' style='position: absolute; width: 100%'>
+			<div class="table_center">
+				<div class="ham_box" style="margin-bottom: 12px;">
+					<div class="title">회원가입</div>
+					<div class="content_ham no_top_radius">
+						<form th:action="@{/join}" method="post">
+							<div style="margin: 0; padding: 0; display: inline">
+								<input name="utf8" type="hidden" value="&#x2713;" /><input
+									name="authenticity_token" type="hidden"
+									value="lnnK+HjAzs8YFFSN6ipngEBub7zA8hnsbbGeGaWjZX8=" />
+							</div>
+							<input id="user_password_initialized"
+								name="user[password_initialized]" type="hidden" value="true" />
+							<input id="continue" name="continue" type="hidden" />
+							<div class="input_form">
+								<div class="box_wrapper first">
+									<input autocapitalize="off" autocomplete="off"
+										autocorrect="off" autofocus="autofocus" class="joinbox email"
+										id="user_email" name="email" placeholder="이메일 주소"
+										size="30" type="email" /> <label for="user_email">이메일
+										주소</label>
+
+									<div class="validation_check"></div>
+								</div>
+								<div class="box_wrapper">
+									<input class="joinbox name" id="user_name" name="name"
+										placeholder="이름" size="30" type="text" /> <label
+										for="user_name">이름</label>
+									<div class="validation_check"></div>
+								</div>
+								<div class="box_wrapper last">
+									<input autocapitalize="off" autocomplete="off"
+										autocorrect="off" class="joinbox password" id="user_password"
+										name="password" placeholder="비밀번호 (6자 이상)" size="30"
+										type="password" /> <label for="user_password">비밀번호
+										(6자 이상)</label>
+									<div class="validation_check"></div>
+								</div>
+							</div>
+
+							<!-- <div id="submit_join" class="btn_join disable"
+								disabled="disabled"> -->
+							<input class="btn_login" name="commit" type="submit" value="등록하기" />
+							<!-- <div id="submit_join" class="btn_join" onclick="this.submit();">
+								등록하기
+								<div class="email_fake_btn">
+									<div class="email_inner_img"></div>
+								</div>
+							</div> -->
+							<div class="comment_top">
+								<a href="/login">로그인</a> / <a href="/about/agreement"
+									target="_blank">약관 보기</a>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- <div class="ham_box">
+					<div class="content_ham">
+						<div class="comment_btm fb">
+							이미 페이스북으로 가입하셨다면 <a href="#"
+								onclick="snsconnect('facebook', ''); return false;"
+								class="button btn_fb_join"> 페이스북으로 1초만에가입
+								<div class="facebook_fake_btn">
+									<div class="facebook_inner_img"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div> -->
+				<div class="shadow"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

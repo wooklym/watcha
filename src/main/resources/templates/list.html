@@ -1,0 +1,2054 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="/favicon.ico" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="google" value="notranslate" />
+<title>추천영화 :: 왓챠</title>
+<meta content="내 취향에 맞는 영화들을 발견하세요. 그리고 마음에 드는 영화는 보고싶어요 를 눌러 담아놓으세요."
+	name="description" />
+<meta content="@watchamovie" name="twitter:creator" />
+<meta content="com.frograms.watcha" name="twitter:app:id:googleplay" />
+<meta content="644185507" name="twitter:app:id:ipad" />
+<meta content="644185507" name="twitter:app:id:iphone" />
+<meta content="watcha://" name="twitter:app:url:googleplay" />
+<meta content="watcha://" name="twitter:app:url:ipad" />
+<meta content="summary_large_image" name="twitter:card" />
+<meta content="@watchamovie" name="twitter:site" />
+<meta content="watcha://" name="twitter:app:url:iphone" />
+<meta content="watcha.net" name="twitter:domain" />
+<meta content="왓챠 - 영화관 갈 때 필수앱 (영화추천/무료시사회)"
+	name="twitter:app:name:googleplay" />
+<meta content="영화관 갈 때 필수앱 - 왓챠(맞춤 영화 추천)" name="twitter:app:name:ipad" />
+<meta content="영화관 갈 때 필수앱 - 왓챠(맞춤 영화 추천)"
+	name="twitter:app:name:iphone" />
+<meta content="126765124079533" property="fb:app_id" />
+<meta
+	content="주변 극장 시간표를 한 눈에 비교할 수 있고 TV와 모바일에서 바로 볼 수 있는 무료 영화도 정말 많아요."
+	property="og:description" />
+<meta content="https://watcha.net/watcha_icon_200x200_new.png"
+	property="og:image" />
+<meta content="https://watcha.net/recommendation" property="og:url" />
+<meta content="영화 필수앱 왓챠! - 영화추천/무료영화/극장시간표" property="og:title" />
+<meta content="website" property="og:type" />
+
+<link href="css/list.css" media="screen" rel="stylesheet"
+	type="text/css" />
+
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="TabCr9Z5l6l0kQFAYAPdc4tPUZBer9NdIJix6pQLKQU="
+	name="csrf-token" />
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+	$(function() {
+		var handler = function(e) {
+			e.preventDefault();
+		}
+
+
+		//팝업 띄우는 기능
+		$(".movie-card").click(function() {
+			var $popup = $("#watcha-popup-wrapper").clone();
+			var $overlay = $popup.find(".overlay");
+			var $image = $(this).find("img.poster");
+			$popup.find("img.poster").attr("src", $image.attr("src"));
+
+			$popup.prependTo("body");
+			$popup.show();
+			$("body").bind("touchmove", handler);
+
+			//댓글 다는 기능
+			$("#comment-register").click(function() {
+				var now = new Date();
+				$cli = $(".comment-li").first().clone();
+				$cli.find(".name").text(/*[[${#httpServletRequest.remoteUser}]]*/);
+				$cli.find(".updated-at").text(now.toString());
+				$cli.find(".text").text($("#comment-text").val());
+
+				$(".review-list").prepend($cli);
+			});
+
+			//아래는, 팝업 바깥 클릭 시 파업 없애주는 기능
+			$("html").click(function() {
+				$popup.fadeout();
+				$popup.remove();
+				$("body").unbind("touchmove", handler);
+			});
+			$('.movie-detail-container').click(function(event){
+			    event.stopPropagation();
+			});
+		});
+
+		$(".page-num").click(function() {
+			$(".page-num").each(function() {
+				var pagenum = $(this).attr("id").replace("pagenum", "");
+				$("#page" + pagenum).fadeOut();
+			})
+			var pagenum = $(this).attr("id").replace("pagenum", "");
+			$("#page" + pagenum).fadeIn();
+		});
+	});
+/*]]>*/
+</script>
+
+</head>
+
+<body class="recommendation">
+	<div id="header" class="">
+		<div class="for-popup-scroll-area-margin">
+			<div class="inner responsive-mask">
+				<ul class="gnb clearfix">
+					<li class="navi-item home "><a href="/"> <img
+							src="https://d12hfz37g51hrt.cloudfront.net/assets/bi/icon_40-2d77bc98e90946d8ddaddc60d3fbb96b.png"
+							width="30" height="30" />
+					</a> <span class="highlight"></span></li>
+					<li class="navi-item recomendation on"><a
+						href="/recommendation">추천영화</a> <span class="highlight"></span></li>
+					<li class="navi-item interest"><a href="/interest">관심영화함</a> <span
+						class="highlight"></span></li>
+					<li class="navi-item qna"><a href="/qna">Q&amp;A</a> <span
+						class="highlight"></span></li>
+				</ul>
+
+				<form accept-charset="UTF-8" action="/search" id="search-form"
+					method="get">
+					<div class="input-wrapper">
+						<input id="input-query" name="query" type="search"
+							autocomplete="off" class="ui-autocomplete-input" /> <span
+							id="search-icon"></span>
+					</div>
+				</form>
+
+				<div id="gnb-right-menu" class="right-menu">
+
+					<div class="menu my">
+						<a href="/users/J3lPtM2HnnJs" class="name"> 최수진 <img
+							class="thumbnail" src="img/profile.jpg" width="30" height="30"
+							onerror="utils.loadDefaultImg(this, 'thumb');" />
+						</a> <span class="highlight"></span>
+						<div class="dropdown">
+							<ul>
+								<li><a href="/users/J3lPtM2HnnJs/wishlist">영화보관함</a> <span
+									class="count">75</span></li>
+								<li class="divide-line"><a href="#" class="setting">설정</a>
+								</li>
+								<li><a href="/logout">로그아웃</a></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="contents">
+
+		<div id="genre-contents">
+			<div class="responsive-mask">
+				<div id="filter" class="common-filtering">
+					<div class="filter-category-wrapper">
+						<div class="filter-category genre" data-category="genre">장르</div>
+						<div class="filter-category nation" data-category="nation">국가</div>
+						<div class="filter-category year" data-category="year">연도</div>
+					</div>
+
+					<ul class="filter-item-list clearfix genre-list"
+						data-category="genre">
+						<li class="filter-item " data-filter-value="all">모든 장르 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="35">범죄 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="36">드라마 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="37">코미디 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="38">로맨스/멜로 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="39">스릴러 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="40">로맨틱 코미디 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="41">전쟁 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="43">가족 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="44">판타지 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="45">액션 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="46">SF <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="47">애니메이션 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="48">다큐멘터리 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="49">공포 <span
+							class="check-icon"></span>
+						</li>
+					</ul>
+
+					<ul class="filter-item-list clearfix nation-list"
+						data-category="nation_category">
+						<li class="filter-item " data-filter-value="all">모든 국가 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="1">한국 <span
+							class="check-icon"></span></li>
+						<li class="filter-item" data-filter-value="2">미국 <span
+							class="check-icon"></span></li>
+						<li class="filter-item" data-filter-value="3">일본 <span
+							class="check-icon"></span></li>
+						<li class="filter-item" data-filter-value="4">유럽 <span
+							class="check-icon"></span></li>
+						<li class="filter-item" data-filter-value="5">기타 국가 <span
+							class="check-icon"></span></li>
+					</ul>
+
+					<ul class="filter-item-list clearfix year-list"
+						data-category="year">
+						<li class="filter-item all " data-filter-value="all">모든 기간 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item 1900" data-filter-value="1900~1990">
+							1900~1990 <span class="check-icon"></span>
+						</li>
+						<li class="filter-item 1991" data-filter-value="1991~2000">
+							1991~2000 <span class="check-icon"></span>
+						</li>
+						<li class="filter-item 2001" data-filter-value="2001~2010">
+							2001~2010 <span class="check-icon"></span>
+						</li>
+						<li class="filter-item 2011" data-filter-value="2011~2015">
+							2011~2015 <span class="check-icon"></span>
+						</li>
+					</ul>
+
+
+					<ul class="filter-item-list clearfix reason-list"
+						data-category="reason">
+						<li class="filter-item" data-filter-value="all">모든 영화 <span
+							class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="minimumRating">예상
+							별점이 가장 높은 영화 <span class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="hasDirector">좋아할
+							만한 감독이 만든 영화 <span class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="hasActor">좋아할 만한
+							배우가 출연한 영화 <span class="check-icon"></span>
+						</li>
+						<li class="filter-item" data-filter-value="hasSimilar">높게 평가한
+							영화와 비슷한 영화 <span class="check-icon"></span>
+						</li>
+					</ul>
+
+
+				</div>
+				<ul id="filter-tag-list">
+				</ul>
+
+			</div>
+			<div class="responsive-mask">
+				<div id="movie-cards" class="clearfix" style="position: relative;">
+					<div id="page1">
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mb7xbv card grid-1 hei-1"
+							style="position: relative; float: left">
+							<div class="poster-wrapper" style="position: relative;">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/4fe762a90af4c1c80c39.jpg?1428611990"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.4</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mmliep card grid-1 hei-1"
+							style="position: relative; float: left">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/6097384ef819f55ccea8.jpg?1428611974"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.5</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mlvarw card grid-1 hei-1"
+							style="position: relative; float: left">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/329959f128b3a2e33fed.jpg?1428611919"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.0</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mowftc card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/3381bca9959fbcfc18cb.jpg?1428611496"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.7</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-maqtip card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/0f6f1653e34bc8867aa7.jpg?1428613587"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.0</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-m0gk77 card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/218e503fee02c75a789b.jpg?1428611772"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.9</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mn7bpi card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/f8e3a9a99c78a9366684.jpg?1428611705"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.1</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mjoxnw card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/bdc982cf8d931725bd5c.jpg?1428611501"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.9</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mnogbf card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/a1f4c71c7f86a6c289af.jpg?1428611712"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.9</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mefaim card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/fc6b04d5e2e432317f57.jpg?1428611582"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.1</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+					</div>
+					<div id="page2" style="display: none">
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mq7nqu card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper" style="position: relative;">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/c7ac9ea9138be3f9f045.jpg?1428611588"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.3</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mzqvrj card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/742317ade7e3abb22845.jpg?1428611698"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.4</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mn4gf4 card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/0dc6259c85b91707d53a.jpg?1428611719"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.0</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mio4cc card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/d19da2b231f74e942890.jpg?1428611838"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.8</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mhudbh card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/06232cd7a632a421b424.jpg?1428611501"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.7</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mxj146 card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/815ac094fe0bb2966224.jpg?1428611771"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.8</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-m1hjc7 card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/25de822b7cee2a4a99e6.jpg?1428612907"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.9</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-ma7flg card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/8eb2c1d9fbb67f243e2d.jpg?1428179692"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.9</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mi1ebd card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/35d4c9da3a39e5152921.jpg?1428525140"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.4</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mcrbun card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/d00348d55ae845420e8e.jpg?1428613569"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.7</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+					</div>
+					<div id="page3" style="display: none">
+
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mavt4p card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/b03d46e84ef035172ad1.jpg?1428611863"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.7</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-meu5i0 card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/7f30e495715b58c61066.jpg?1428611653"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.2</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mz3ztx card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/21fa4ed13af9f3570189.jpg?1428611550"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.3</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mo8han card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/b00f994fdc89b64e76a9.jpg?1428611754"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.6</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-m10mnl card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/dfdc9e6a02ec27b5ee2f.jpg?1428611738"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.7</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mjiva3 card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/09c670c8bf44310bebee.jpg?1428611430"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.3</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-ms0kcx card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/1520536b4dc6ea14d6f4.jpg?1428612040"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.4</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mqv248 card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/337b06714397f79df125.jpg?1428611509"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.2</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mvemex card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/88d7cfd8b9c5302941a1.jpg?1428611454"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.2</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mmc0mj card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/c004142414245659b5f4.jpg?1428438781"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.6</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+					</div>
+					<div id="page4" style="display: none">
+
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mo0mri card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/5f35c036a0c4a24a0177.jpg?1428611540"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.7</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mmfh1n card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/f3a94c272864df60a4ae.jpg?1428611424"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.7</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-moqv7u card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/e2a65c50bb939cb30d53.jpg?1428611501"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.1</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-madnqg card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/6cf516ae51fbb909983b.jpg?1428611427"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.8</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mu4zaf card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/9d2bc0a996c8c4a58540.jpg?1428611550"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">3.8</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mot8a6 card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/5c45bb4a745286d6d71b.jpg?1428611736"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.1</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+
+						</div>
+						<div
+							class="movie-card size-1x1 poster-type base_movie  user-action-mwvgoj card grid-1 hei-1"
+							style="position: relative; float: left;">
+							<div class="poster-wrapper">
+
+								<img class="poster"
+									src="https://d12hfz37g51hrt.cloudfront.net/p/b/a6a97691e1214a158c7f.jpg?1428611468"
+									width="100%" />
+
+
+								<div class="top-gradation"></div>
+
+
+								<div class="predicted-rating">
+
+									<span class="rating"> <img class="thumb" width="25"
+										height="25" src="img/profile.jpg"
+										onerror="utils.loadDefaultImg(this, 'thumb');return false;" />
+										<span class="number">4.3</span>
+									</span>
+
+
+								</div>
+
+								<div class="detail-opener gradation"></div>
+								<div class="bottom"></div>
+
+							</div>
+
+
+
+
+						</div>
+					</div>
+
+
+				</div>
+				<div id="paging" style="text-align: center; height: 50px;">
+					<div class="page-num" id="pagenum1">1</div>
+					<div class="page-num" id="pagenum2">2</div>
+					<div class="page-num" id="pagenum3">3</div>
+					<div class="page-num" id="pagenum4">4</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="toast-msg"></div>
+	<div id="account-setting-popup">
+		<div class="inner-shadow"></div>
+		<div class="photo-wrapper"
+			style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/n_v1in1_blur/m7kgsf-e194a91274a527e716df.jpg?1370680413)">
+			<span class="user-photo"
+				style="background-image: url('https://d12hfz37g51hrt.cloudfront.net/user/1428766/original/profile_1424420765.jpg')">
+				<img alt="Ui_kit_78"
+				src="https://d12hfz37g51hrt.cloudfront.net/assets/masks/ui_kit_78-45011c57e1c8bfe8058cf97b45bfa019.png" />
+			</span>
+			<div class="name-and-upload">
+				<span class="name">최수진<span id="upload-user-photo"
+					class="upload"></span></span>
+			</div>
+		</div>
+		<form>
+			<table>
+				<tbody>
+					<tr class="email">
+						<td class="title">이메일</td>
+						<td class="field">hswook93@gmail.com
+							<button class="change-email" data-password-initialized="false">변경하기</button>
+						</td>
+					</tr>
+					<tr class="nickname">
+						<td class="title">닉네임</td>
+						<td class="field"><input type="text" name="user[name]"
+							value="최수진" />
+							<p class="desc">최소 2자, 최대 20글자까지 가능합니다.</p></td>
+					</tr>
+					<tr class="sns">
+						<td class="title">SNS 설정</td>
+						<td class="field">
+							<div class="fb">
+								<div class="icon-wrapper on" data-password-initialized="false">
+									<span class="switch"></span> <span class="icon"></span>
+								</div>
+								<span class="text">페이스북 계정 연동 해제하기</span> <input
+									id="use-timeline" name="user[use_timeline]" type="checkbox"
+									checked="checked" /> <label for="use-timeline">페이스북
+									타임라인에 게시하기</label>
+							</div>
+							<div class="twitter">
+								<div class="icon-wrapper ">
+									<span class="switch"></span> <span class="icon"></span>
+								</div>
+								<span class="text">트위터 계정 연동 하기</span>
+							</div>
+						</td>
+					</tr>
+					<tr class="subscribe">
+						<td class="title">이메일 구독</td>
+						<td class="field"><input id="subscribe-email"
+							name="user[mailing_update]" type="checkbox" checked="checked" />
+							<label for="subscribe-email">왓챠의 업데이트 및 이벤트 소식</label></td>
+					</tr>
+					<tr class="reset_evals">
+						<td class="title">평가내역 초기화</td>
+						<td class="field">
+							<button class="reset_ims_btn password_not_init" type="button">초기화할
+								항목 선택하기</button>
+							<div class="reset_ims_box ">
+
+								<div class="warning_text">초기화 후에는 복구 할 수 없습니다</div>
+								<input class="password_input" type="password"
+									name="password_input" placeholder="비밀번호 입력" />
+								<div class="checkbox_wrapper">
+									<div class="checkbox_item">
+										<input id="reset_wish" type="checkbox" name="reset_type[]"
+											value="wish" /> <label for="reset_wish">보고싶어요</label>
+									</div>
+									<div class="checkbox_item">
+										<input id="reset_eval" type="checkbox" name="reset_type[]"
+											value="eval" /> <label for="reset_eval">봤어요</label>
+									</div>
+									<div class="checkbox_item">
+										<input id="reset_review" type="checkbox" name="reset_type[]"
+											value="review" /> <label for="reset_review">코멘트</label>
+									</div>
+									<div class="checkbox_item">
+										<input id="reset_meh" type="checkbox" name="reset_type[]"
+											value="meh" /> <label for="reset_meh">관심없어요</label>
+									</div>
+								</div>
+
+								<p class="reset_msg"></p>
+								<div class="button_wrapper">
+									<button type="button" class="reset_cancel">취소</button>
+									<button type="button" class="reset_submit">확인</button>
+								</div>
+								<span id="box-arrow"></span>
+							</div>
+						</td>
+					</tr>
+					<tr class="set-interest-privacy">
+						<td class="title">공개범위 설정</td>
+						<td class="field">
+							<button class="btn" type="button">전체공개</button>
+							<div class="scope-box">
+								<div class="kind">평가 / 보고싶어요 / 관심없어요</div>
+								<div class="radio-wrapper">
+									<div class="radio-item checked">
+										<input id="allow-public" type="radio" checked="checked"
+											name="interest_privacy" value="0" /> <label
+											for="allow-public">
+											<dt>전체공개</dt>
+											<dd>왓챠의 모든 유저에게 공개합니다.</dd>
+										</label>
+									</div>
+									<div class="radio-item ">
+										<input id="allow-friends" type="radio" name="interest_privacy"
+											value="1" /> <label for="allow-friends">
+											<dt>친구공개</dt>
+											<dd>내가 팔로우하는 친구에게 공개합니다.</dd>
+										</label>
+									</div>
+									<div class="radio-item ">
+										<input id="allow-private" type="radio" name="interest_privacy"
+											value="2" /> <label for="allow-private">
+											<dt>비공개</dt>
+											<dd>아무에게도 공개하지 않습니다.</dd>
+										</label>
+									</div>
+								</div>
+								<div class="button_wrapper">
+									<button type="button" class="accessor_cancel">취소</button>
+									<button type="button" class="accessor_submit">확인</button>
+								</div>
+								<span class="box-arrow"></span>
+							</div>
+						</td>
+					</tr>
+					<tr class="password">
+						<td class="title">비밀번호 생성</td>
+						<td class="field"><input class="current"
+							name="password[password_ori]" type="password"
+							placeholder="기존 비밀번호" style="display: none;" /> <input
+							class="new" name="password[password_new]" type="password"
+							placeholder="새 비밀번호" /> <input class="confirm"
+							name="password[password_confirm]" type="password"
+							placeholder="새 비밀번호 확인" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<a href="#" type="button" class="deactivate">탈퇴하기</a>
+		<button class="submit">확인</button>
+		<button class="cancel">취소</button>
+		<div class="clear"></div>
+	</div>
+
+
+
+	<div id="footer">
+		<div class="wrapper responsive-mask">
+			<div class="info">최수진 Copyright © 2014 by Frograms. Inc. All
+				rights reserved</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="watcha-popup-wrapper" style="top: 0px; display: none;">
+		<div class="overlay" style="min-height: 126px;">
+
+			<div id="popup-canvas">
+				<div id="canvasLoader" style="display: none;">
+					<canvas width="40" height="40">
+    </canvas>
+					<canvas width="40" height="40" style="display: none;">
+    </canvas>
+				</div>
+			</div>
+
+			<div class="movie-detail-container popup"
+				style="display: block; width: 940px; position: relative;">
+
+				<div class="movie-detail mqmrjg detail-pop has-vods">
+					<div class="vod-area">
+						<div class="zzim">
+							<img src="img/zzim.jpg" />
+						</div>
+						<ul class="vod-list">
+							<li class="vod-item hoppin"><span class="price"> <span
+									class="vendor-logo">1</span> 2,500원
+							</span> <a
+								href="http://www.hoppin.nate.com/serviceportal/movie/movieDetail/searchDetailView.do?dpRepProdId=P00000483298&amp;called_from=watcha&amp;page_id=SKP_HOPPIN_EXT_EVENT_62421"
+								target="_blank" class="link" data-vod-vendor="hoppin"> <span
+									class="icon"></span> 감상 <span class="quality">(HD화질)</span>
+							</a></li>
+							<li class="vod-item lguplustvg"><span class="price">
+									<span class="vendor-logo">9</span> 2,500원
+							</span> <span class="quality">HD화질</span></li>
+							<li class="vod-item skbbtv"><span class="price"> <span
+									class="vendor-logo">10</span> 2,500원
+							</span> <span class="quality">HD화질</span></li>
+							<li class="vod-item hellotv"><span class="price"> <span
+									class="vendor-logo">12</span> 3,000원
+							</span> <span class="quality">HD화질</span></li>
+						</ul>
+					</div>
+
+					<div class="cise-wrapper" itemscope=""
+						itemtype="http://data-vocabulary.org/review-aggregate">
+						<div id="detailWatchaCard" style="">
+							<div
+								class="movie-card size-1x1 poster-type base_movie  user-action-mqmrjg card grid-1 hei-1">
+								<div class="poster-wrapper">
+
+									<img class="poster"
+										src="https://d12hfz37g51hrt.cloudfront.net/p/b/080fe8fb9e03c21ac960.jpg?1428613667"
+										width="100%" />
+
+
+									<div class="top-gradation"></div>
+
+
+									<div class="detail-opener gradation"></div>
+									<div class="bottom"></div>
+
+								</div>
+
+
+
+							</div>
+						</div>
+						<script type="text/javascript">
+							var movieDetailWrapper = $('.movie-detail.mqmrjg.detail-pop')
+							var detailWatchaCard = movieDetailWrapper
+									.find('#detailWatchaCard')
+							$
+									.ajax(
+											{
+												url : '/movie/mqmrjg.json',
+												success : function(movie) {
+													card = new MovieCard(
+															'poster_movie_card',
+															'1x1',
+															movie.items[0],
+															{
+																preventDetailPopup : true,
+																hidePredictedRating : true
+															});
+													0
+													detailWatchaCard
+															.append(card.el);
+													detailWatchaCard.show();
+												}
+											})
+						</script>
+						<div class="info">
+							<div class="title" itemprop="itemreviewed">안녕,헤이즐</div>
+						</div>
+
+						<div class="desc">The Fault in Our Stars, 2014, 미국, 드라마,
+							로맨스/멜로, 12세 관람가, 2시간 5분</div>
+						<div class="watcha-rating-wrapper">
+							<!--         <span class="watcha-rating"><span style="display: inline-block; width: 14px; height: 13px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_H.gray_1-787faae4b2bd809a3a05152d19b7f809.png) 0px 0px / 14px 13px no-repeat;"></span><span style="display: inline-block; width: 14px; height: 13px; margin-left: 1px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_H.gray_1-787faae4b2bd809a3a05152d19b7f809.png) 0px 0px / 14px 13px no-repeat;"></span><span style="display: inline-block; width: 14px; height: 13px; margin-left: 1px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_H.gray_1-787faae4b2bd809a3a05152d19b7f809.png) 0px 0px / 14px 13px no-repeat;"></span><span style="display: inline-block; width: 11px; height: 13px; margin-left: 1px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_H.gray_1-787faae4b2bd809a3a05152d19b7f809.png) 0px 0px / 14px 13px no-repeat;"></span><span style="display: inline-block; width: 3px; height: 13px; margin-left: 0px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_gray-9ca82b9922fadb6c5cf5271dd4cebae4.png) -11px 0px / 14px 13px no-repeat;"></span><span style="display: inline-block; width: 14px; height: 13px; margin-left: 1px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_gray-9ca82b9922fadb6c5cf5271dd4cebae4.png) 0px 0px / 14px 13px no-repeat;"></span></span>
+        <span class="number" itemprop="rating">3.8</span>
+        <span class="eval-count" itemprop="votes">(52,030명 참여)</span>
+ -->
+						</div>
+					</div>
+
+					<div class="west">
+
+
+						<h5>줄거리</h5>
+						<div class="story">산소통을 캐리어처럼 끌고 호흡기를 생명줄처럼 차고 있는 헤이즐. 집에
+							틀어박혀 리얼리티 쇼나 보며 하루를 축내는 자신을 걱정하는 가족에게 등 떠밀려 어쩔 수 없이 참석한 암 환자 모임에서
+							꽃미소가 매력적인 어거스터스를 만난다. 담배를 입에 물었지만 불은 붙이지 않는 ‘상징적인 행동’으로 헤이즐의 맹비난을
+							재치있게 받아넘긴 어거스터스는 시크하고 우울증마저 겪는 헤이즐을 두근거리게 만든다. 무한 설렘주의! 무엇도 방해할 수
+							없는 예측불허 로맨스~ 두 사람은 소설책을 나눠 읽으며 급속도로 가까워지고, 어거스터스는 헤이즐이 그토록 좋아하는
+							네덜란드의 작가를 만나게 해주기 위해 ‘지니의 소원’을 빌어 암스테르담 여행을 제안한다. 가족과 주변의 걱정과
+							만류에도 불구하고 생애 처음으로 여행길에 오른 두 사람. 자신을 시한폭탄이라 생각하고 사랑하는 것들과 선을 그었던
+							그녀와, 거절당할까 두려워 진실을 감춰왔던 어거스터스는 서로에게 속마음을 털어놓기 시작하는데...</div>
+
+
+						<h5 class="all-review heading">
+							코멘트
+							<input type="text" id="comment-text" style="width:80%; margin-left:20px;"/>
+							<img id="comment-register" style="float:right; cursor:pointer;" src="img/register.jpg" />
+						</h5>
+						<ul class="all-review review-list">
+							<li class="comment-li" ><div class="blur-area">
+									<a href="/users/ddycFitNdlYY/comments" class="user-pic"
+										onclick="closePopupBeforeLeave(event);"><img
+										src="img/profile.jpg" /></a>
+									<div class="review">
+										<a href="/users/ddycFitNdlYY/comments" class="name"
+											onclick="closePopupBeforeLeave(event);">정인혁</a>
+										<p class="text">
+											안녕 헤이즐 보다 잘못은 우리 별에 있어가 더 좋은데..<br /> <br />크레딧 올라가자마자 든 생각
+											: 또 보고싶다..
+										</p>
+										<div class="watch-records" style="display: none;"></div>
+										<div class="bottom-left">
+											<span class="updated-at">2014년 8월 13일</span>
+										</div>
+									</div>
+									<span class="balloon-arrow"></span>
+								</div>
+								<div class="remove-blur-wrapper">
+									<div class="icon"
+										onclick="removeSpoilerCommentBlur(this);return false;">아이콘</div>
+									<div class="spoiler-text"
+										onclick="removeSpoilerCommentBlur(this);return false;">스포일러
+										있어요!</div>
+								</div></li>
+							<li class="comment-li" ><div class="blur-area">
+									<a href="/users/evDwaREOvyAO/comments" class="user-pic"
+										onclick="closePopupBeforeLeave(event);"><img
+										src="img/profile.jpg" /></a>
+									<div class="review">
+										<a href="/users/evDwaREOvyAO/comments" class="name"
+											onclick="closePopupBeforeLeave(event);">곽경민</a>
+										<p class="text">세상에는 이따금 너무 아름다워서 분석하는게 오히려 모욕처럼 느껴지는 것들이
+											있다. 이 영화가 그렇고, 헤이즐과 거스의 사랑이 그렇다. 인생 최고의 영화 중 하나.</p>
+										<div class="watch-records" style="display: none;"></div>
+										<div class="bottom-left">
+											<span class="updated-at">2014년 7월 18일</span>
+										</div>
+									</div>
+									<span class="balloon-arrow"></span>
+								</div>
+								<div class="remove-blur-wrapper">
+									<div class="icon"
+										onclick="removeSpoilerCommentBlur(this);return false;">아이콘</div>
+									<div class="spoiler-text"
+										onclick="removeSpoilerCommentBlur(this);return false;">스포일러
+										있어요!</div>
+								</div></li>
+						</ul>
+						<div class="all-review more" style="display: block;">더보기</div>
+						<div id="review-loader-container-mqmrjg"
+							class="all-review spinner" style="display: none;">
+							<div id="canvasLoader" style="display: block;">
+								<canvas width="40" height="40"></canvas>
+								<canvas width="40" height="40" style="display: none;"></canvas>
+							</div>
+						</div>
+
+
+						<h5 class="similar-movie-heading">비슷한 영화</h5>
+						<ul class="similar-movie-list">
+							<div
+								class="movie-card mini-poster-card user-action-m2m7i0 card grid-1 hei-1 first">
+								<div class="poster-wrapper">
+									<img class="poster"
+										src="https://d12hfz37g51hrt.cloudfront.net/p/b/ae91ce95fb53752fee94.jpg?1428611426"
+										width="140" height="200" />
+									<div class="gradation detail-opener"></div>
+								</div>
+
+							</div>
+							<div
+								class="movie-card mini-poster-card user-action-madnqg card grid-1 hei-1">
+								<div class="poster-wrapper">
+									<img class="poster"
+										src="https://d12hfz37g51hrt.cloudfront.net/p/b/6cf516ae51fbb909983b.jpg?1428611427"
+										width="140" height="200" />
+									<div class="gradation detail-opener"></div>
+								</div>
+
+							</div>
+							<div
+								class="movie-card mini-poster-card user-action-m1zlt8 card grid-1 hei-1">
+								<div class="poster-wrapper">
+									<img class="poster"
+										src="https://d12hfz37g51hrt.cloudfront.net/p/b/5dd88e0d7eb3a354f961.jpg?1428093106"
+										width="140" height="200" />
+									<div class="gradation detail-opener"></div>
+								</div>
+
+							</div>
+							<div
+								class="movie-card mini-poster-card user-action-miu81m card grid-1 hei-1">
+								<div class="poster-wrapper">
+									<img class="poster"
+										src="https://d12hfz37g51hrt.cloudfront.net/p/b/fad9cdd0f63404c4dc31.jpg?1428611683"
+										width="140" height="200" />
+									<div class="gradation detail-opener"></div>
+								</div>
+
+							</div>
+							<li class="clear"></li>
+						</ul>
+
+					</div>
+
+					<div class="east">
+
+						<h5>예고편</h5>
+						<ul class="trailer-list">
+							<li class="trailer-item" data-youtube-id="PpRLnnoeL5A"><img
+								src="http://img.youtube.com/vi/PpRLnnoeL5A/0.jpg"
+								class="stillcut" width="190" height="130" />
+								<div class="stillcut-black-layer"></div> <span class="play-icon">재생하기</span>
+							</li>
+						</ul>
+
+						<h5>감독</h5>
+						<ul class="movie-people">
+							<li class="movie-person director"><a
+								href="javascript:void(0)" class="kor-name popup-involve-movies"
+								data-person-id="311722"><img
+									src="https://d12hfz37g51hrt.cloudfront.net/assets/default/movie_person/photo_n_cr-f0a326976a9df294ff0e7c60c282e99e.jpg?1361451422"
+									class="pic" width="40" height="40" /></a> <a
+								href="javascript:void(0)" class="kor-name popup-involve-movies"
+								data-person-id="311722">조쉬 분</a> <span class="eng-name">Josh
+									Boone</span></li>
+						</ul>
+
+						<h5>주연</h5>
+						<ul class="movie-people">
+							<li class="movie-person actor"><a href="javascript:void(0)"
+								class="kor-name popup-involve-movies" data-person-id="145209"><img
+									src="https://d12hfz37g51hrt.cloudfront.net/ppl/n_cr/b986e5000365ab61daf2.jpg?1344271255"
+									class="pic" width="40" height="40"
+									onerror="this.src = 'https://d12hfz37g51hrt.cloudfront.net/assets/default/movie_person/photo_n_cr-f0a326976a9df294ff0e7c60c282e99e.jpg';return false;" /></a>
+								<a href="javascript:void(0)"
+								class="kor-name popup-involve-movies" data-person-id="145209">쉐일린
+									우드리</a> <span class="kor-role">헤이즐 그레이스 랭커스터 역</span> <span
+								class="eng-name">Shailene Woodley</span></li>
+							<li class="movie-person actor"><a href="javascript:void(0)"
+								class="kor-name popup-involve-movies" data-person-id="317509"><img
+									src="https://d12hfz37g51hrt.cloudfront.net/ppl/n_cr/9ca4a8b8c29e0ffe1f86.jpg?1389261717"
+									class="pic" width="40" height="40"
+									onerror="this.src = 'https://d12hfz37g51hrt.cloudfront.net/assets/default/movie_person/photo_n_cr-f0a326976a9df294ff0e7c60c282e99e.jpg';return false;" /></a>
+								<a href="javascript:void(0)"
+								class="kor-name popup-involve-movies" data-person-id="317509">안셀
+									엘고트</a> <span class="kor-role">어거스터스 워터스 역</span> <span
+								class="eng-name">Ansel Elgort</span></li>
+							<li class="movie-person actor"><a href="javascript:void(0)"
+								class="kor-name popup-involve-movies" data-person-id="158853"><img
+									src="https://d12hfz37g51hrt.cloudfront.net/ppl/n_cr/615951f363c2db4d7b87.jpg?1344271303"
+									class="pic" width="40" height="40"
+									onerror="this.src = 'https://d12hfz37g51hrt.cloudfront.net/assets/default/movie_person/photo_n_cr-f0a326976a9df294ff0e7c60c282e99e.jpg';return false;" /></a>
+								<a href="javascript:void(0)"
+								class="kor-name popup-involve-movies" data-person-id="158853">냇
+									울프</a> <span class="kor-role">이삭 역</span> <span class="eng-name">Nat
+									Wolff</span></li>
+							<li class="movie-person actor"><a href="javascript:void(0)"
+								class="kor-name popup-involve-movies" data-person-id="95259"><img
+									src="https://d12hfz37g51hrt.cloudfront.net/ppl/n_cr/112e7adae8efd227e2d0.jpg?1344271247"
+									class="pic" width="40" height="40"
+									onerror="this.src = 'https://d12hfz37g51hrt.cloudfront.net/assets/default/movie_person/photo_n_cr-f0a326976a9df294ff0e7c60c282e99e.jpg';return false;" /></a>
+								<a href="javascript:void(0)"
+								class="kor-name popup-involve-movies" data-person-id="95259">윌렘
+									데포</a> <span class="kor-role">피터 반 후텐 역</span> <span
+								class="eng-name">Willem Dafoe</span></li>
+						</ul>
+
+
+						<!--
+      개별 영화에 따른 공식 SNS 로 연결
+      <h5>공식 SNS</h5>
+      <ul>
+        <li class="twitter"><a href="http://twitter.com/watchamovie" target="_blank">트위터</a></li>
+        <li class="facebook"><a href="http://facebook.com/watcha.net" target="_blank">페이스북</a></li>
+      </ul>
+      -->
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="close"></div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>
