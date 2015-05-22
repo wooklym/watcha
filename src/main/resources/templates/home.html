@@ -1,41 +1,2452 @@
-<!DOCTYPE html>
 <html>
 <head>
-<title>로그인 :: 왓챠</title>
+<link href="http://watcha.net/favicon.ico?v=2" rel="shortcut icon"
+	type="image/vnd.microsoft.icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="google" value="notranslate" />
+<title>왓챠 :: 오늘 영화도 부탁해!</title>
+<meta
+	content="주변 극장 시간표를 한 눈에 비교할 수 있고 TV와 모바일에서 바로 볼 수 있는 무료 영화도 정말 많아요."
+	name="description" />
+<meta content="@watchamovie" name="twitter:creator" />
+<meta content="com.frograms.watcha" name="twitter:app:id:googleplay" />
+<meta content="644185507" name="twitter:app:id:ipad" />
+<meta content="644185507" name="twitter:app:id:iphone" />
+<meta content="watcha://" name="twitter:app:url:googleplay" />
+<meta content="watcha://" name="twitter:app:url:ipad" />
+<meta content="summary_large_image" name="twitter:card" />
+<meta content="@watchamovie" name="twitter:site" />
+<meta content="watcha://" name="twitter:app:url:iphone" />
+<meta content="watcha.net" name="twitter:domain" />
+<meta content="왓챠 - 영화관 갈 때 필수앱 (영화추천/무료시사회)"
+	name="twitter:app:name:googleplay" />
+<meta content="영화관 갈 때 필수앱 - 왓챠(맞춤 영화 추천)" name="twitter:app:name:ipad" />
+<meta content="영화관 갈 때 필수앱 - 왓챠(맞춤 영화 추천)"
+	name="twitter:app:name:iphone" />
+<meta content="126765124079533" property="fb:app_id" />
+<meta
+	content="주변 극장 시간표를 한 눈에 비교할 수 있고 TV와 모바일에서 바로 볼 수 있는 무료 영화도 정말 많아요."
+	property="og:description" />
+<meta content="https://watcha.net/watcha_icon_200x200_new.png"
+	property="og:image" />
+<meta content="https://watcha.net/" property="og:url" />
+<meta content="영화 필수앱 왓챠! - 영화추천/무료영화/극장시간표" property="og:title" />
+<meta content="website" property="og:type" />
+
 <link
-	href="https://d12hfz37g51hrt.cloudfront.net/assets/join_login-55ecff41d05bdf1b989cf93dfaa27527.css"
+	href="https://d12hfz37g51hrt.cloudfront.net/assets/application/home-0069481ef7cf6374e32a7c2da6127a50.css"
 	media="screen" rel="stylesheet" type="text/css" />
+<!--[if lt IE 9]>
+    <script src="https://d12hfz37g51hrt.cloudfront.net/assets/ie/html5shiv-fc87910d474e01266d79f06d5045828b.js" type="text/javascript"></script>
+    <![endif]-->
+<!--[if lte IE 8]>
+    <script charset="utf-8" src="https://d12hfz37g51hrt.cloudfront.net/assets/r2d3.min-ab77cedc6d45fbcc241d001f0b52ae4f.js" type="text/javascript"></script>
+    <![endif]-->
+<!--[if gte IE 9]><!-->
+<script type="application/javascript" async="" defer=""
+	src="https://by.uservoice.com/t/110867/x/p/2ip2zO76Ydo9Ui91/track.js?_=1432318125127&amp;s=0&amp;c=__uvSessionData0&amp;d=eyJ1Ijp7Im5hbWUiOiLtl4jshLHsmrEiLCJjcmVhdGVkX2F0IjoxNDI0NDIwNzU5MDAwLCJpZCI6IkozbFB0TTJIbm5KcyIsIm8iOi01NDB9LCJlIjp7InUiOiJodHRwczovL3dhdGNoYS5uZXQvIiwiciI6IiJ9fQ%3D%3D"></script>
+<script type="text/javascript" id="www-widgetapi-script"
+	src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vfl3G6wqk/www-widgetapi.js"
+	async=""></script>
+<script type="text/javascript" async=""
+	src="//widget.uservoice.com/PN1NQAWEP4cb8TbAbcg.js"></script>
+<script id="facebook-jssdk" async=""
+	src="//connect.facebook.net/ko_KR/sdk.js"></script>
+<script id="twitter-wjs" src="https://platform.twitter.com/widgets.js"></script>
+<script async="" src="//www.google-analytics.com/analytics.js"></script>
+<script src="https://www.youtube.com/player_api"></script>
+<script
+	src="https://d12hfz37g51hrt.cloudfront.net/assets/d3.min-e50a165b97a54da6306340a6ee37b203.js"
+	type="text/javascript"></script>
+<!--<![endif]-->
+<script
+	src="https://d12hfz37g51hrt.cloudfront.net/assets/application/home-bd6f3867b4347c1c4f7d11728fa60dcb.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+	window.WATCHA_USER = {
+		NAME : "허성욱",
+		THUMB : "https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg",
+		CODE : "J3lPtM2HnnJs",
+		FB_CONNECTED : true
+	};
+	window.WATCHA_PARTNER = {};
+</script>
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="jCI8NpYGRmu8fKRBCeGT9pPiSZzPf6iX94kUOENuebY="
+	name="csrf-token" />
+
+
+<script>
+	$(function() {
+		UserVoice = window.UserVoice || [];
+		(function() {
+			var uv = document.createElement('script');
+			uv.type = 'text/javascript';
+			uv.async = true;
+			uv.src = '//widget.uservoice.com/PN1NQAWEP4cb8TbAbcg.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(uv, s)
+		})();
+
+		UserVoice.push([ 'set', {
+			accent_color : '#ff382e',
+			trigger_color : 'white',
+			trigger_background_color : '#ff382e',
+			screenshot_enabled : false
+		} ]);
+
+		UserVoice.push([ 'identify', {
+			name : "허성욱",
+			created_at : "1424420759",
+			id : "J3lPtM2HnnJs",
+		} ]);
+
+		UserVoice.push([ 'addTrigger', {
+			mode : 'contact',
+			trigger_position : 'bottom-left'
+		} ]);
+
+		UserVoice.push([ 'autoprompt', {} ]);
+	});
+</script>
+
+
+
+<script type="text/javascript">
+	(function(i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function() {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js',
+			'ga');
+
+	ga('create', 'UA-27006241-2', {
+		'userId' : 'J3lPtM2HnnJs'
+	});
+
+	ga('set', 'dimension1', 'member')
+	ga('set', 'dimension2', '2015/2')
+	ga('set', 'dimension3', '20')
+	ga('set', 'dimension4', 'J3lPtM2HnnJs')
+	ga('set', 'dimension5', '175.209.10.36')
+
+	var HALF_STAR = "half"
+	var halfStarToUa = 'half_b'
+
+	ga('set', 'dimension6', halfStarToUa)
+	ga('set', 'dimension7', 'Y:2015;Q:1;M:02;D:20;H:17;WY:2015;WN:08;WD:5');
+
+	ga('send', 'pageview');
+</script>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<style id="scrollbar-width">
+body.popup-enabled {
+	overflow: hidden;
+	margin-right: 0px;
+}
+
+body.popup-enabled #header .for-popup-scroll-area-margin {
+	margin-right: 0px;
+}
+
+body.popup-enabled #window-overlay {
+	overflow: auto;
+}
+</style>
+<script type="text/javascript"
+	src="https://www.google.com/uds/?file=visualization&amp;v=1.0&amp;packages=corechart&amp;async=2"></script>
+<link type="text/css"
+	href="https://www.google.com/uds/api/visualization/1.0/abbdd6ab2d343a51d49841bf93d022fb/ui+ko.css"
+	rel="stylesheet" />
+<script type="text/javascript"
+	src="https://www.google.com/uds/api/visualization/1.0/abbdd6ab2d343a51d49841bf93d022fb/format+ko,default+ko,ui+ko,corechart+ko.I.js"></script>
+<style type="text/css" media="screen">
+.uv-icon {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	display: inline-block;
+	cursor: pointer;
+	position: relative;
+	-moz-transition: all 300ms;
+	-o-transition: all 300ms;
+	-webkit-transition: all 300ms;
+	transition: all 300ms;
+	width: 39px;
+	height: 39px;
+	position: fixed;
+	z-index: 100002;
+	opacity: 0.8;
+	-moz-transition: opacity 100ms;
+	-o-transition: opacity 100ms;
+	-webkit-transition: opacity 100ms;
+	transition: opacity 100ms
+}
+
+.uv-icon.uv-bottom-right {
+	bottom: 10px;
+	right: 12px
+}
+
+.uv-icon.uv-top-right {
+	top: 10px;
+	right: 12px
+}
+
+.uv-icon.uv-bottom-left {
+	bottom: 10px;
+	left: 12px
+}
+
+.uv-icon.uv-top-left {
+	top: 10px;
+	left: 12px
+}
+
+.uv-icon.uv-is-selected {
+	opacity: 1
+}
+
+.uv-icon svg {
+	width: 39px;
+	height: 39px
+}
+
+.uv-popover {
+	font-family: sans-serif;
+	font-weight: 100;
+	font-size: 13px;
+	color: black;
+	position: fixed;
+	z-index: 100001
+}
+
+.uv-popover-content {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background: white;
+	position: relative;
+	width: 325px;
+	height: 325px;
+	-moz-transition: background 200ms;
+	-o-transition: background 200ms;
+	-webkit-transition: background 200ms;
+	transition: background 200ms
+}
+
+.uv-bottom .uv-popover-content {
+	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -10px 60px, rgba(0, 0, 0, 0.1) 0 0
+		20px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -10px 60px, rgba(0, 0, 0, 0.1)
+		0 0 20px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0 -10px 60px, rgba(0, 0, 0, 0.1) 0 0 20px
+}
+
+.uv-top .uv-popover-content {
+	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 10px 60px, rgba(0, 0, 0, 0.1) 0 0
+		20px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 10px 60px, rgba(0, 0, 0, 0.1) 0
+		0 20px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0 10px 60px, rgba(0, 0, 0, 0.1) 0 0 20px
+}
+
+.uv-left .uv-popover-content {
+	-moz-box-shadow: rgba(0, 0, 0, 0.3) 10px 0 60px, rgba(0, 0, 0, 0.1) 0 0
+		20px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 10px 0 60px, rgba(0, 0, 0, 0.1) 0
+		0 20px;
+	box-shadow: rgba(0, 0, 0, 0.3) 10px 0 60px, rgba(0, 0, 0, 0.1) 0 0 20px
+}
+
+.uv-right .uv-popover-content {
+	-moz-box-shadow: rgba(0, 0, 0, 0.3) -10px 0 60px, rgba(0, 0, 0, 0.1) 0 0
+		20px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) -10px 0 60px, rgba(0, 0, 0, 0.1)
+		0 0 20px;
+	box-shadow: rgba(0, 0, 0, 0.3) -10px 0 60px, rgba(0, 0, 0, 0.1) 0 0 20px
+}
+
+.uv-ie8 .uv-popover-content {
+	position: relative
+}
+
+.uv-ie8 .uv-popover-content .uv-popover-content-shadow {
+	display: block;
+	background: black;
+	content: '';
+	position: absolute;
+	left: -15px;
+	top: -15px;
+	width: 100%;
+	height: 100%;
+	filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=15,
+		MakeShadow=true, ShadowOpacity=0.30);
+	z-index: -1
+}
+
+.uv-popover-tail {
+	border: 9px solid transparent;
+	width: 0;
+	z-index: 10;
+	position: absolute;
+	-moz-transition: border-top-color 200ms;
+	-o-transition: border-top-color 200ms;
+	-webkit-transition: border-top-color 200ms;
+	transition: border-top-color 200ms
+}
+
+.uv-top .uv-popover-tail {
+	bottom: -20px;
+	border-top: 11px solid white
+}
+
+.uv-bottom .uv-popover-tail {
+	top: -20px;
+	border-bottom: 11px solid white
+}
+
+.uv-left .uv-popover-tail {
+	right: -20px;
+	border-left: 11px solid white
+}
+
+.uv-right .uv-popover-tail {
+	left: -20px;
+	border-right: 11px solid white
+}
+
+.uv-popover-loading {
+	background: white;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0
+}
+
+.uv-popover-loading-text {
+	position: absolute;
+	top: 50%;
+	margin-top: -0.5em;
+	width: 100%;
+	text-align: center
+}
+
+.uv-popover-iframe-container {
+	height: 100%
+}
+
+.uv-popover-iframe {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	overflow: hidden
+}
+
+.uv-is-hidden {
+	display: none
+}
+
+.uv-is-invisible {
+	display: block !important;
+	visibility: hidden !important
+}
+
+.uv-is-transitioning {
+	display: block !important
+}
+
+.uv-no-transition {
+	-moz-transition: none !important;
+	-webkit-transition: none !important;
+	-o-transition: color 0 ease-in !important;
+	transition: none !important
+}
+
+.uv-fade {
+	opacity: 1;
+	-moz-transition: opacity 200ms ease-out;
+	-o-transition: opacity 200ms ease-out;
+	-webkit-transition: opacity 200ms ease-out;
+	transition: opacity 200ms ease-out
+}
+
+.uv-fade.uv-is-hidden {
+	opacity: 0
+}
+
+.uv-scale-top, .uv-scale-top-left, .uv-scale-top-right, .uv-scale-bottom,
+	.uv-scale-bottom-left, .uv-scale-bottom-right, .uv-scale-right,
+	.uv-scale-right-top, .uv-scale-right-bottom, .uv-scale-left,
+	.uv-scale-left-top, .uv-scale-left-bottom, .uv-slide-top,
+	.uv-slide-bottom, .uv-slide-left, .uv-slide-right {
+	opacity: 1;
+	-moz-transition: all 80ms ease-out;
+	-o-transition: all 80ms ease-out;
+	-webkit-transition: all 80ms ease-out;
+	transition: all 80ms ease-out
+}
+
+.uv-scale-top.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateY(-15%);
+	-ms-transform: scale(0.8) translateY(-15%);
+	-webkit-transform: scale(0.8) translateY(-15%);
+	transform: scale(0.8) translateY(-15%)
+}
+
+.uv-scale-top-left.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateY(-15%) translateX(-10%);
+	-ms-transform: scale(0.8) translateY(-15%) translateX(-10%);
+	-webkit-transform: scale(0.8) translateY(-15%) translateX(-10%);
+	transform: scale(0.8) translateY(-15%) translateX(-10%)
+}
+
+.uv-scale-top-right.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateY(-15%) translateX(10%);
+	-ms-transform: scale(0.8) translateY(-15%) translateX(10%);
+	-webkit-transform: scale(0.8) translateY(-15%) translateX(10%);
+	transform: scale(0.8) translateY(-15%) translateX(10%)
+}
+
+.uv-scale-bottom.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateY(15%);
+	-ms-transform: scale(0.8) translateY(15%);
+	-webkit-transform: scale(0.8) translateY(15%);
+	transform: scale(0.8) translateY(15%)
+}
+
+.uv-scale-bottom-left.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateY(15%) translateX(-10%);
+	-ms-transform: scale(0.8) translateY(15%) translateX(-10%);
+	-webkit-transform: scale(0.8) translateY(15%) translateX(-10%);
+	transform: scale(0.8) translateY(15%) translateX(-10%)
+}
+
+.uv-scale-bottom-right.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateY(15%) translateX(10%);
+	-ms-transform: scale(0.8) translateY(15%) translateX(10%);
+	-webkit-transform: scale(0.8) translateY(15%) translateX(10%);
+	transform: scale(0.8) translateY(15%) translateX(10%)
+}
+
+.uv-scale-right.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateX(15%);
+	-ms-transform: scale(0.8) translateX(15%);
+	-webkit-transform: scale(0.8) translateX(15%);
+	transform: scale(0.8) translateX(15%)
+}
+
+.uv-scale-right-top.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateX(15%) translateY(-10%);
+	-ms-transform: scale(0.8) translateX(15%) translateY(-10%);
+	-webkit-transform: scale(0.8) translateX(15%) translateY(-10%);
+	transform: scale(0.8) translateX(15%) translateY(-10%)
+}
+
+.uv-scale-right-bottom.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateX(15%) translateY(10%);
+	-ms-transform: scale(0.8) translateX(15%) translateY(10%);
+	-webkit-transform: scale(0.8) translateX(15%) translateY(10%);
+	transform: scale(0.8) translateX(15%) translateY(10%)
+}
+
+.uv-scale-left.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateX(-15%);
+	-ms-transform: scale(0.8) translateX(-15%);
+	-webkit-transform: scale(0.8) translateX(-15%);
+	transform: scale(0.8) translateX(-15%)
+}
+
+.uv-scale-left-top.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateX(-15%) translateY(-10%);
+	-ms-transform: scale(0.8) translateX(-15%) translateY(-10%);
+	-webkit-transform: scale(0.8) translateX(-15%) translateY(-10%);
+	transform: scale(0.8) translateX(-15%) translateY(-10%)
+}
+
+.uv-scale-left-bottom.uv-is-hidden {
+	opacity: 0;
+	-moz-transform: scale(0.8) translateX(-15%) translateY(10%);
+	-ms-transform: scale(0.8) translateX(-15%) translateY(10%);
+	-webkit-transform: scale(0.8) translateX(-15%) translateY(10%);
+	transform: scale(0.8) translateX(-15%) translateY(10%)
+}
+
+.uv-slide-top.uv-is-hidden {
+	-moz-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
+	-webkit-transform: translateY(-100%);
+	transform: translateY(-100%)
+}
+
+.uv-slide-bottom.uv-is-hidden {
+	-moz-transform: translateY(100%);
+	-ms-transform: translateY(100%);
+	-webkit-transform: translateY(100%);
+	transform: translateY(100%)
+}
+
+.uv-slide-left.uv-is-hidden {
+	-moz-transform: translateX(-100%);
+	-ms-transform: translateX(-100%);
+	-webkit-transform: translateX(-100%);
+	transform: translateX(-100%)
+}
+
+.uv-slide-right.uv-is-hidden {
+	-moz-transform: translateX(100%);
+	-ms-transform: translateX(100%);
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%)
+}
+</style>
+<style type="text/css" media="screen">
+.uv-icon:hover {
+	opacity: 1
+}
+</style>
+<style type="text/css" media="print">
+#uvTab, .uv-tray, .uv-icon, .uv-popover, .uv-bubble {
+	display: none !important
+}
+</style>
+<style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+	top: 18px !important;
+	left: 50% !important;
+	margin-left: -100px !important;
+	width: 200px !important;
+	border: 2px rgba(255, 255, 255, .38) solid !important;
+	border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+	margin-left: 0px !important;
+}
+</style>
+<link
+	href="https://ajax.googleapis.com/ajax/static/modules/gviz/1.0/core/tooltip.css"
+	rel="stylesheet" type="text/css" />
+<script async="true" type="text/javascript"
+	src="https://s.adroll.com/j/roundtrip.js"></script>
+<style type="text/css">
+.fb_hidden {
+	position: absolute;
+	top: -10000px;
+	z-index: 10001
+}
+
+.fb_invisible {
+	display: none
+}
+
+.fb_reset {
+	background: none;
+	border: 0;
+	border-spacing: 0;
+	color: #000;
+	cursor: auto;
+	direction: ltr;
+	font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	letter-spacing: normal;
+	line-height: 1;
+	margin: 0;
+	overflow: visible;
+	padding: 0;
+	text-align: left;
+	text-decoration: none;
+	text-indent: 0;
+	text-shadow: none;
+	text-transform: none;
+	visibility: visible;
+	white-space: normal;
+	word-spacing: normal
+}
+
+.fb_reset>div {
+	overflow: hidden
+}
+
+.fb_link img {
+	border: none
+}
+
+.fb_dialog {
+	background: rgba(82, 82, 82, .7);
+	position: absolute;
+	top: -10000px;
+	z-index: 10001
+}
+
+.fb_reset .fb_dialog_legacy {
+	overflow: visible
+}
+
+.fb_dialog_advanced {
+	padding: 10px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px
+}
+
+.fb_dialog_content {
+	background: #fff;
+	color: #333
+}
+
+.fb_dialog_close_icon {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png)
+		no-repeat scroll 0 0 transparent;
+	_background-image:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);
+	cursor: pointer;
+	display: block;
+	height: 15px;
+	position: absolute;
+	right: 18px;
+	top: 17px;
+	width: 15px
+}
+
+.fb_dialog_mobile .fb_dialog_close_icon {
+	top: 5px;
+	left: 5px;
+	right: auto
+}
+
+.fb_dialog_padding {
+	background-color: transparent;
+	position: absolute;
+	width: 1px;
+	z-index: -1
+}
+
+.fb_dialog_close_icon:hover {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png)
+		no-repeat scroll 0 -15px transparent;
+	_background-image:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)
+}
+
+.fb_dialog_close_icon:active {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png)
+		no-repeat scroll 0 -30px transparent;
+	_background-image:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)
+}
+
+.fb_dialog_loader {
+	background-color: #f6f7f8;
+	border: 1px solid #606060;
+	font-size: 24px;
+	padding: 20px
+}
+
+.fb_dialog_top_left, .fb_dialog_top_right, .fb_dialog_bottom_left,
+	.fb_dialog_bottom_right {
+	height: 10px;
+	width: 10px;
+	overflow: hidden;
+	position: absolute
+}
+
+.fb_dialog_top_left {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png)
+		no-repeat 0 0;
+	left: -10px;
+	top: -10px
+}
+
+.fb_dialog_top_right {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png)
+		no-repeat 0 -10px;
+	right: -10px;
+	top: -10px
+}
+
+.fb_dialog_bottom_left {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png)
+		no-repeat 0 -20px;
+	bottom: -10px;
+	left: -10px
+}
+
+.fb_dialog_bottom_right {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png)
+		no-repeat 0 -30px;
+	right: -10px;
+	bottom: -10px
+}
+
+.fb_dialog_vert_left, .fb_dialog_vert_right, .fb_dialog_horiz_top,
+	.fb_dialog_horiz_bottom {
+	position: absolute;
+	background: #525252;
+	filter: alpha(opacity = 70);
+	opacity: .7
+}
+
+.fb_dialog_vert_left, .fb_dialog_vert_right {
+	width: 10px;
+	height: 100%
+}
+
+.fb_dialog_vert_left {
+	margin-left: -10px
+}
+
+.fb_dialog_vert_right {
+	right: 0;
+	margin-right: -10px
+}
+
+.fb_dialog_horiz_top, .fb_dialog_horiz_bottom {
+	width: 100%;
+	height: 10px
+}
+
+.fb_dialog_horiz_top {
+	margin-top: -10px
+}
+
+.fb_dialog_horiz_bottom {
+	bottom: 0;
+	margin-bottom: -10px
+}
+
+.fb_dialog_iframe {
+	line-height: 0
+}
+
+.fb_dialog_content .dialog_title {
+	background: #6d84b4;
+	border: 1px solid #3a5795;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0
+}
+
+.fb_dialog_content .dialog_title>span {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+		no-repeat 5px 50%;
+	float: left;
+	padding: 5px 0 7px 26px
+}
+
+body.fb_hidden {
+	-webkit-transform: none;
+	height: 100%;
+	margin: 0;
+	overflow: visible;
+	position: absolute;
+	top: -10000px;
+	left: 0;
+	width: 100%
+}
+
+.fb_dialog.fb_dialog_mobile.loading {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+		white no-repeat 50% 50%;
+	min-height: 100%;
+	min-width: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	z-index: 10001
+}
+
+.fb_dialog.fb_dialog_mobile.loading.centered {
+	max-height: 590px;
+	min-height: 590px;
+	max-width: 500px;
+	min-width: 500px
+}
+
+#fb-root #fb_dialog_ipad_overlay {
+	background: rgba(0, 0, 0, .45);
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	min-height: 100%;
+	z-index: 10000
+}
+
+#fb-root #fb_dialog_ipad_overlay.hidden {
+	display: none
+}
+
+.fb_dialog.fb_dialog_mobile.loading iframe {
+	visibility: hidden
+}
+
+.fb_dialog_content .dialog_header {
+	-webkit-box-shadow: white 0 1px 1px -1px inset;
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA),
+		to(#2C4987));
+	border-bottom: 1px solid;
+	border-color: #1d4088;
+	color: #fff;
+	font: 14px Helvetica, sans-serif;
+	font-weight: bold;
+	text-overflow: ellipsis;
+	text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0;
+	vertical-align: middle;
+	white-space: nowrap
+}
+
+.fb_dialog_content .dialog_header table {
+	-webkit-font-smoothing: subpixel-antialiased;
+	height: 43px;
+	width: 100%
+}
+
+.fb_dialog_content .dialog_header td.header_left {
+	font-size: 12px;
+	padding-left: 5px;
+	vertical-align: middle;
+	width: 60px
+}
+
+.fb_dialog_content .dialog_header td.header_right {
+	font-size: 12px;
+	padding-right: 5px;
+	vertical-align: middle;
+	width: 60px
+}
+
+.fb_dialog_content .touchable_button {
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6),
+		color-stop(.5, #355492), to(#2A4887));
+	border: 1px solid #2f477a;
+	-webkit-background-clip: padding-box;
+	-webkit-border-radius: 3px;
+	-webkit-box-shadow: rgba(0, 0, 0, .117188) 0 1px 1px inset,
+		rgba(255, 255, 255, .167969) 0 1px 0;
+	display: inline-block;
+	margin-top: 3px;
+	max-width: 85px;
+	line-height: 18px;
+	padding: 4px 12px;
+	position: relative
+}
+
+.fb_dialog_content .dialog_header .touchable_button input {
+	border: none;
+	background: none;
+	color: #fff;
+	font: 12px Helvetica, sans-serif;
+	font-weight: bold;
+	margin: 2px -12px;
+	padding: 2px 6px 3px 6px;
+	text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0
+}
+
+.fb_dialog_content .dialog_header .header_center {
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 18px;
+	text-align: center;
+	vertical-align: middle
+}
+
+.fb_dialog_content .dialog_content {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif)
+		no-repeat 50% 50%;
+	border: 1px solid #555;
+	border-bottom: 0;
+	border-top: 0;
+	height: 150px
+}
+
+.fb_dialog_content .dialog_footer {
+	background: #f6f7f8;
+	border: 1px solid #555;
+	border-top-color: #ccc;
+	height: 40px
+}
+
+#fb_dialog_loader_close {
+	float: left
+}
+
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button {
+	text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0
+}
+
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon {
+	visibility: hidden
+}
+
+.fb_iframe_widget {
+	display: inline-block;
+	position: relative
+}
+
+.fb_iframe_widget span {
+	display: inline-block;
+	position: relative;
+	text-align: justify
+}
+
+.fb_iframe_widget iframe {
+	position: absolute
+}
+
+.fb_iframe_widget_fluid_desktop, .fb_iframe_widget_fluid_desktop span,
+	.fb_iframe_widget_fluid_desktop iframe {
+	max-width: 100%
+}
+
+.fb_iframe_widget_fluid_desktop iframe {
+	min-width: 220px;
+	position: relative
+}
+
+.fb_iframe_widget_lift {
+	z-index: 1
+}
+
+.fb_hide_iframes iframe {
+	position: relative;
+	left: -10000px
+}
+
+.fb_iframe_widget_loader {
+	position: relative;
+	display: inline-block
+}
+
+.fb_iframe_widget_fluid {
+	display: inline
+}
+
+.fb_iframe_widget_fluid span {
+	width: 100%
+}
+
+.fb_iframe_widget_loader iframe {
+	min-height: 32px;
+	z-index: 2;
+	zoom: 1
+}
+
+.fb_iframe_widget_loader .FB_Loader {
+	background:
+		url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif)
+		no-repeat;
+	height: 32px;
+	width: 32px;
+	margin-left: -16px;
+	position: absolute;
+	left: 50%;
+	z-index: 4
+}
+</style>
+<script async="true" type="text/javascript"
+	src="//d.adroll.com/pixel/TQL7PFOBG5ES5EZEXO4NRM/GZKZVF5HHBDGHN5OY6OVXG?pv=61188360117.375854&amp;cookie=KLZI6FFXARDVBD4XJM7FX2%3A2%7CGZKZVF5HHBDGHN5OY6OVXG%3A2%7CTQL7PFOBG5ES5EZEXO4NRM%3A2&amp;keyw="></script>
+<div style="width: 1px; height: 1px; display: inline;">
+	<img height="1" width="1" style="border-style: none;" alt=""
+		src="https://d.adroll.com/cm/r/out" /> <img height="1" width="1"
+		style="border-style: none;" alt="" src="https://d.adroll.com/cm/b/out" />
+	<img height="1" width="1" style="border-style: none;" alt=""
+		src="https://d.adroll.com/cm/w/out" /> <img height="1" width="1"
+		style="border-style: none;" alt="" src="https://d.adroll.com/cm/x/out" />
+	<img height="1" width="1" style="border-style: none;" alt=""
+		src="https://d.adroll.com/cm/l/out" /> <img height="1" width="1"
+		style="border-style: none;" alt="" src="https://d.adroll.com/cm/o/out" />
+	<img height="1" width="1" style="border-style: none;" alt=""
+		src="https://d.adroll.com/cm/g/out?google_nid=adroll4" /> <img
+		height="1" width="1" style="border-style: none;" alt=""
+		src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/933633792/?label=v6fvCIC1kgYQgL6YvQM&amp;guid=ON&amp;script=0&amp;ord=6221320289187133" />
+	<img src="https://secure.adnxs.com/seg?add=731275&amp;t=2" width="1"
+		height="1" />
+</div>
 </head>
-<body class="intro">
-	<div id="contents">
-		<div class="login_background"></div>
-		<div id="simple_logo_header">
-			<div class="logo_container"></div>
+
+<body class="home apple-gothic mac on-the-cover"
+	data-twttr-rendered="true">
+	<div id="fb-root" class=" fb_reset">
+		<div
+			style="position: absolute; top: -10000px; height: 0px; width: 0px;">
+			<div>
+				<iframe name="fb_xdm_frame_https" frameborder="0"
+					allowtransparency="true" allowfullscreen="true" scrolling="no"
+					id="fb_xdm_frame_https" aria-hidden="true"
+					title="Facebook Cross Domain Communication Frame" tabindex="-1"
+					src="https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=41#channel=f1567c8398&amp;origin=https%3A%2F%2Fwatcha.net"
+					style="border: none;"></iframe>
+			</div>
+		</div>
+		<div
+			style="position: absolute; top: -10000px; height: 0px; width: 0px;">
+			<div></div>
 		</div>
 	</div>
-	<div class="movable">
-		<div class="table_center">
-			<div class="flip">
-				<div class="ham_box front" style="margin-bottom: 12px;">
-					<div class="title">HOME</div>
-					<div class="content_ham no_top_radius">
-						<div class="input_form">
-							<div class="box_wrapper first">
-								<a class="btn_login" th:href="@{/hello}">로그인</a>
-							</div>
-							<div class="box_wrapper first">
-								<a id="submit_join" class="btn_join" th:href="@{/join}">
-									등록하기
-									<div class="email_fake_btn">
-										<div class="email_inner_img"></div>
-									</div>
-								</a>
-							</div>
+	<div id="header" class="">
+		<div class="for-popup-scroll-area-margin">
+			<div class="inner responsive-mask">
+				<ul class="gnb clearfix">
+					<li class="navi-item home "><a href="/"> <img
+							src="https://d12hfz37g51hrt.cloudfront.net/assets/bi/icon_40-2d77bc98e90946d8ddaddc60d3fbb96b.png"
+							width="30" height="30" />
+					</a> <span class="highlight"></span></li>
+					<li class="navi-item recomendation on"><a
+						href="/recommendation">추천영화</a> <span class="highlight"></span></li>
+					<li class="navi-item interest"><a href="/interest">관심영화함</a> <span
+						class="highlight"></span></li>
+					<li class="navi-item qna"><a href="/qna">Q&amp;A</a> <span
+						class="highlight"></span></li>
+				</ul>
+
+				<form accept-charset="UTF-8" action="/search" id="search-form"
+					method="get">
+					<div class="input-wrapper">
+						<input id="input-query" name="query" type="search"
+							autocomplete="off" class="ui-autocomplete-input" /> <span
+							id="search-icon"></span>
+					</div>
+				</form>
+
+				<div id="gnb-right-menu" class="right-menu">
+
+					<div class="menu my">
+						<a href="/users/J3lPtM2HnnJs" class="name"> 최수진 <img
+							class="thumbnail" src="img/profile.jpg" width="30" height="30"
+							onerror="utils.loadDefaultImg(this, 'thumb');" />
+						</a> <span class="highlight"></span>
+						<div class="dropdown">
+							<ul>
+								<li><a href="/users/J3lPtM2HnnJs/wishlist">영화보관함</a> <span
+									class="count">75</span></li>
+								<li class="divide-line"><a href="#" class="setting">설정</a>
+								</li>
+								<li><a href="/logout">로그아웃</a></li>
+							</ul>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
+	</div>
+
+
+	<script type="text/javascript">
+		window.WATCHA_USER_NAME = '허성욱';
+		window.WATCHA_USER_CODE = 'J3lPtM2HnnJs';
+		// new Header('J3lPtM2HnnJs', window.settingInstance);
+	</script>
+
+	<div id="contents" style="min-height: 757px; position: relative;">
+
+		<div class="recommend-wrapper" style="margin-top: 10px;">
+			<ol class="sections-wrapper">
+				<li id="boxoffice-section" class="boxoffice responsive-mask section"><h3
+						class="title">오늘의 BOX OFFICE</h3>
+					<div class="slider-wrapper">
+						<div class="vertical-list">
+							<ul class="grid-container"
+								style="position: relative; width: 1920px; height: 670px;">
+								<div class="ranking card grid-1 hei-1 top-0 left-0">
+									<h4 class="head">영화 랭킹</h4>
+									<div class="inner">
+										<ol class="list">
+
+
+
+											<li class="item rank1" style=""><a
+												href="/mv/mad-max-fury-road-2013/mpgxes"
+												data-movie-id="mpgxes"
+												data-movie-title-url="mad-max-fury-road-2013"> <span
+													class="number">1</span>매드 맥스: 분노의 도로
+											</a></li>
+
+
+
+											<li class="item rank2" style=""><a
+												href="/mv/susan-cooper-2015/mg6l24" data-movie-id="mg6l24"
+												data-movie-title-url="susan-cooper-2015"> <span
+													class="number">2</span>스파이
+											</a></li>
+
+
+
+											<li class="item rank3" style=""><a
+												href="/mv/gansin-gaje-2014/mptg5z" data-movie-id="mptg5z"
+												data-movie-title-url="gansin-gaje-2014"> <span
+													class="number">3</span>간신
+											</a></li>
+
+
+
+											<li class="item " style=""><a
+												href="/mv/almost-home-2014/m1jx84" data-movie-id="m1jx84"
+												data-movie-title-url="almost-home-2014"> <span
+													class="number">4</span>홈
+											</a></li>
+
+
+
+											<li class="item " style=""><a
+												href="/mv/agyi-yeondaegi/m63qmm" data-movie-id="m63qmm"
+												data-movie-title-url="agyi-yeondaegi"> <span
+													class="number">5</span>악의 연대기
+											</a></li>
+
+
+
+											<li class="item " style=""><a
+												href="/mv/the-avengers-2-2015/mrz65z" data-movie-id="mrz65z"
+												data-movie-title-url="the-avengers-2-2015"> <span
+													class="number">6</span>어벤져스: 에이지 오브 울트론
+											</a></li>
+
+
+
+											<li class="item " style=""><a
+												href="/mv/muroehan-2008/mdmz6i" data-movie-id="mdmz6i"
+												data-movie-title-url="muroehan-2008"> <span
+													class="number">7</span>무뢰한
+											</a></li>
+
+
+
+											<li class="item " style=""><a
+												href="/mv/1952-2014/mw028f" data-movie-id="mw028f"
+												data-movie-title-url="1952-2014"> <span class="number">8</span>투모로우랜드
+											</a></li>
+
+
+
+											<li class="item " style="display: none"><a
+												href="/mv/while-were-young-2015/mwnqrf"
+												data-movie-id="mwnqrf"
+												data-movie-title-url="while-were-young-2015"> <span
+													class="number">9</span>위아영
+											</a></li>
+
+
+
+											<li class="item " style="display: none"><a
+												href="/mv/still-alice-2015/mdllt0" data-movie-id="mdllt0"
+												data-movie-title-url="still-alice-2015"> <span
+													class="number">10</span>스틸 앨리스
+											</a></li>
+
+
+
+											<li class="item " style="display: none"><a
+												href="/mv/the-trip-to-italy-2014/mqrf5o"
+												data-movie-id="mqrf5o"
+												data-movie-title-url="the-trip-to-italy-2014"> <span
+													class="number">11</span>트립 투 이탈리아
+											</a></li>
+
+
+
+											<li class="item " style="display: none"><a
+												href="/mv/dino-time-2012/mf1x62" data-movie-id="mf1x62"
+												data-movie-title-url="dino-time-2012"> <span
+													class="number">12</span>다이노 타임
+											</a></li>
+
+
+										</ol>
+									</div>
+								</div>
+								<div
+									class="boxoffice-chart show_0 card grid-1 hei-1 top-1 left-0">
+									<h5 class="head has-paging">
+										<span class="chart-title">누적 관객수</span>
+										<!-- <div class="paging">
+      <span class="prev"><</span>
+      <span class="next">></span>
+    </div> -->
+									</h5>
+									<div class="charts">
+										<div id="reservation-ratio-chart" class="chart">
+											<ul class="legends">
+
+												<li class="legend rank1"><span class="color-icon"></span>
+													<a href="/mv/mad-max-fury-road-2013/mpgxes" class="text"
+													data-movie-id="mpgxes"
+													data-movie-title-url="mad-max-fury-road-2013">1위 : 매드
+														맥스: 분노의...</a> <span class="count">127만명</span></li>
+
+												<li class="legend rank2"><span class="color-icon"></span>
+													<a href="/mv/gansin-gaje-2014/mptg5z" class="text"
+													data-movie-id="mptg5z"
+													data-movie-title-url="gansin-gaje-2014">2위 : 간신</a> <span
+													class="count">18만명</span></li>
+
+												<li class="legend rank3"><span class="color-icon"></span>
+													<a href="/mv/susan-cooper-2015/mg6l24" class="text"
+													data-movie-id="mg6l24"
+													data-movie-title-url="susan-cooper-2015">3위 : 스파이</a> <span
+													class="count">18만명</span></li>
+
+											</ul>
+											<div class="chart-area">
+												<div style="position: relative;">
+													<div dir="ltr"
+														style="position: relative; width: 220px; height: 200px;">
+														<div aria-label="차트입니다."
+															style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
+															<svg width="220" height="200" aria-label="차트입니다."
+																style="overflow: hidden;">
+																<defs id="defs">
+																<clipPath id="_ABSTRACT_RENDERER_ID_0">
+																<rect x="0" y="20" width="220" height="150"></rect></clipPath></defs>
+																<rect x="0" y="0" width="220" height="200" stroke="none"
+																	stroke-width="0" fill="#ffffff"></rect>
+																<g>
+																<rect x="0" y="20" width="220" height="150"
+																	stroke="none" stroke-width="0" fill-opacity="0"
+																	fill="#ffffff"></rect>
+																<g clip-path="url(#_ABSTRACT_RENDERER_ID_0)">
+																<g>
+																<rect x="0" y="119" width="220" height="1" stroke="none"
+																	stroke-width="0" fill="#e5e5e5"></rect></g>
+																<g>
+																<path
+																	d="M27.875,119.17783266666666C27.875,119.17783266666666,64.375,119.18081266666667,82.625,119.17783266666666C100.875,119.17485266666667,119.12500000000001,119.78313688888889,137.375,119.15995266666667C155.625,118.53676844444445,192.125,115.43872733333333,192.125,115.43872733333333"
+																	stroke="#58c7a3" stroke-width="2" fill-opacity="1"
+																	fill="none"></path>
+																<path
+																	d="M27.875,119.42343433333333C27.875,119.42343433333333,64.375,119.4291791111111,82.625,119.42343433333333C100.875,119.41768955555555,119.12500000000001,120.08576416666666,137.375,119.38896566666666C155.625,118.69216716666666,192.125,115.24264333333332,192.125,115.24264333333332"
+																	stroke="#8597e7" stroke-width="2" fill-opacity="1"
+																	fill="none"></path>
+																<path
+																	d="M27.875,75.163034C27.875,75.163034,64.375,72.17646972222222,82.625,70.58962799999999C100.875,69.00278627777776,119.12500000000001,67.0900236111111,137.375,65.64198366666666C155.625,64.1939437222222,192.125,61.90138833333333,192.125,61.90138833333333"
+																	stroke="#f95823" stroke-width="2" fill-opacity="1"
+																	fill="none"></path></g></g>
+																<g>
+																<circle cx="27.875" cy="119.17783266666666" r="3.5"
+																	stroke="none" stroke-width="0" fill="#58c7a3"></circle>
+																<circle cx="82.625" cy="119.17783266666666" r="3.5"
+																	stroke="none" stroke-width="0" fill="#58c7a3"></circle>
+																<circle cx="137.375" cy="119.15995266666667" r="3.5"
+																	stroke="none" stroke-width="0" fill="#58c7a3"></circle>
+																<circle cx="192.125" cy="115.43872733333333" r="3.5"
+																	stroke="none" stroke-width="0" fill="#58c7a3"></circle>
+																<circle cx="27.875" cy="119.42343433333333" r="3.5"
+																	stroke="none" stroke-width="0" fill="#8597e7"></circle>
+																<circle cx="82.625" cy="119.42343433333333" r="3.5"
+																	stroke="none" stroke-width="0" fill="#8597e7"></circle>
+																<circle cx="137.375" cy="119.38896566666666" r="3.5"
+																	stroke="none" stroke-width="0" fill="#8597e7"></circle>
+																<circle cx="192.125" cy="115.24264333333332" r="3.5"
+																	stroke="none" stroke-width="0" fill="#8597e7"></circle>
+																<circle cx="27.875" cy="75.163034" r="3.5" stroke="none"
+																	stroke-width="0" fill="#f95823"></circle>
+																<circle cx="82.625" cy="70.58962799999999" r="3.5"
+																	stroke="none" stroke-width="0" fill="#f95823"></circle>
+																<circle cx="137.375" cy="65.64198366666666" r="3.5"
+																	stroke="none" stroke-width="0" fill="#f95823"></circle>
+																<circle cx="192.125" cy="61.90138833333333" r="3.5"
+																	stroke="none" stroke-width="0" fill="#f95823"></circle></g>
+																<g>
+																<g>
+																<text text-anchor="middle" x="27.875" y="189.05"
+																	font-family="Arial" font-size="13" stroke="none"
+																	stroke-width="0" fill="#93939c">4일전</text></g>
+																<g>
+																<text text-anchor="middle" x="82.625" y="189.05"
+																	font-family="Arial" font-size="13" stroke="none"
+																	stroke-width="0" fill="#93939c">3일전</text></g>
+																<g>
+																<text text-anchor="middle" x="137.375" y="189.05"
+																	font-family="Arial" font-size="13" stroke="none"
+																	stroke-width="0" fill="#93939c">2일전</text></g>
+																<g>
+																<text text-anchor="middle" x="192.125" y="189.05"
+																	font-family="Arial" font-size="13" stroke="none"
+																	stroke-width="0" fill="#93939c">어제</text></g></g></g>
+																<g></g></svg>
+															<div aria-label="차트의 데이터를 나타낸 표입니다."
+																style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+																<table>
+																	<thead>
+																		<tr>
+																			<th>날짜</th>
+																			<th>매드 맥스: 분노의 도로</th>
+																			<th>간신</th>
+																			<th>스파이</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr>
+																			<td>4일전</td>
+																			<td>13198</td>
+																			<td>8253</td>
+																			<td>899402</td>
+																		</tr>
+																		<tr>
+																			<td>3일전</td>
+																			<td>13198</td>
+																			<td>8253</td>
+																			<td>991484</td>
+																		</tr>
+																		<tr>
+																			<td>2일전</td>
+																			<td>13558</td>
+																			<td>8947</td>
+																			<td>1091101</td>
+																		</tr>
+																		<tr>
+																			<td>어제</td>
+																			<td>88482</td>
+																			<td>92430</td>
+																			<td>1166415</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+													<div aria-hidden="true"
+														style="display: none; position: absolute; top: 210px; left: 230px; white-space: nowrap; font-family: Arial; font-size: 13px;">...</div>
+													<div></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div
+									class="movie-card size-2x2 poster-type boxoffice_large_movie  user-action-mpgxes card grid-2 hei-2 top-0 left-1">
+									<div class="poster-wrapper" style="position: relative;">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/ah/4984dc2dce3fe2d042c5.jpg?1432241051"
+											width="100%" height="650" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">4.1</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom">
+
+											<h5 class="movie-title">매드 맥스: 분노의 도로</h5>
+											<div class="basic-info">
+
+												<div class="reservation-info">
+													<span class="rank-share">예매 1위 32.35%</span> <span
+														class="bar">|</span> <span class="dday">개봉 9일째</span> <span
+														class="bar">|</span> <span class="audience">누적관객 수
+														127만명</span>
+												</div>
+
+												<span class="genre">액션</span> <span class="bar">|</span> <span
+													class="running-time">2시간</span> <span class="bar">|</span>
+												<span class="filmrate">15세 관람가</span>
+											</div>
+											<div class="watcha-rating-wrapper">
+
+												<span class="watcha-rating" data-rating="4.3"><span
+													style="display: inline-block; width: 14px; height: 13px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_yellow-8a5911825aa54ba51fd3d17e3126e6b0.png) 0px 0px/14px 13px no-repeat;"></span><span
+													style="display: inline-block; width: 14px; height: 13px; margin-left: 1px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_yellow-8a5911825aa54ba51fd3d17e3126e6b0.png) 0px 0px/14px 13px no-repeat;"></span><span
+													style="display: inline-block; width: 14px; height: 13px; margin-left: 1px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_yellow-8a5911825aa54ba51fd3d17e3126e6b0.png) 0px 0px/14px 13px no-repeat;"></span><span
+													style="display: inline-block; width: 14px; height: 13px; margin-left: 1px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_yellow-8a5911825aa54ba51fd3d17e3126e6b0.png) 0px 0px/14px 13px no-repeat;"></span><span
+													style="display: inline-block; width: 4px; height: 13px; margin-left: 1px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_yellow-8a5911825aa54ba51fd3d17e3126e6b0.png) 0px 0px/14px 13px no-repeat;"></span><span
+													style="display: inline-block; width: 10px; height: 13px; margin-left: 0px; background: url(https://d12hfz37g51hrt.cloudfront.net/assets/stars/star_gray-9ca82b9922fadb6c5cf5271dd4cebae4.png) -4px 0px/14px 13px no-repeat;"></span></span>
+												<span class="number">4.3</span> <span class="eval-count">(22,024명
+													참여)</span>
+											</div>
+
+											<div class="comment">
+												<a href="/user/nXFyXcIcAvKj/eval/movies"> <img
+													width="40" height="40"
+													src="https://d12hfz37g51hrt.cloudfront.net/user/676986/thumb/profile_1416369940.jpg?1394640423"
+													onerror="loadDefaultImg(this, 'medium');return false;" />
+												</a>
+												<p class="text">
+													<a href="/user/nXFyXcIcAvKj/eval/movies" class="name">임이솔
+														: </a> 미친 핵꿀잼....진짜 2d로 보는 건 예의가 아닌...
+												</p>
+											</div>
+
+
+										</div>
+										<div class="action-wrapper">
+											<div class="movie-title">매드 맥스: 분노의 도로</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-mg6l24 card grid-1 hei-1 top-0 left-3">
+									<div class="poster-wrapper">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/c9b3b924c8f738457a85.jpg?1432242914"
+											width="100%" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">3.8</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">스파이</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-mptg5z card grid-1 hei-1 top-1 left-3">
+									<div class="poster-wrapper" style="position: relative;">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/d807b70f4f85567bfd61.jpg?1432243143"
+											width="100%" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">3.1</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">간신</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-m1jx84 card grid-1 hei-1 top-0 left-4">
+									<div class="poster-wrapper" style="position: relative;">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/fd2a7f74bdb8f6977ca3.jpg?1432242812"
+											width="100%" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">3.3</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">홈</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-m63qmm card grid-1 hei-1 top-1 left-4">
+									<div class="poster-wrapper">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/7bb4658183c58685c65b.jpg?1432243008"
+											width="100%" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">3.0</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">악의 연대기</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-mrz65z card grid-1 hei-1 top-0 left-5">
+									<div class="poster-wrapper">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/9a51d0fa8b2536630ee8.jpg?1432242620"
+											width="100%" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">3.8</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">어벤져스: 에이지 오브 울트론</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-mdmz6i card grid-1 hei-1 top-1 left-5">
+									<div class="poster-wrapper">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/44858a14300c1752f165.jpg?1432241230"
+											width="100%" />
+
+
+
+										<div class="predicted-rating"></div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">무뢰한</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-mw028f card grid-1 hei-1 top-0 left-6">
+									<div class="poster-wrapper">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/809903605b54250f3cf9.jpg?1432242686"
+											width="100%" />
+
+
+
+										<div class="predicted-rating"></div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">투모로우랜드</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-mwnqrf card grid-1 hei-1 top-1 left-6">
+									<div class="poster-wrapper">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/ea2cda3a09d705c47379.jpg?1432243010"
+											width="100%" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">3.1</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">위아영</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-mdllt0 card grid-1 hei-1 top-0 left-7">
+									<div class="poster-wrapper">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/3f503b10c3ea22623d4b.jpg?1432243026"
+											width="100%" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">3.7</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">스틸 앨리스</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-mqrf5o card grid-1 hei-1 top-1 left-7">
+									<div class="poster-wrapper">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/79d8d1f2eadd15277457.jpg?1432242815"
+											width="100%" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">3.5</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">트립 투 이탈리아</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div
+									class="movie-card size-1x1 poster-type boxoffice_large_movie  user-action-mf1x62 card grid-1 hei-1 top-0 left-8">
+									<div class="poster-wrapper">
+
+										<img class="poster"
+											src="https://d12hfz37g51hrt.cloudfront.net/p/b/63b8b69fa04edbe10a53.jpg?1432240952"
+											width="100%" />
+
+
+										<div class="top-gradation"></div>
+
+
+										<div class="predicted-rating">
+
+											<span class="rating"> <img class="thumb" width="25"
+												height="25"
+												src="https://d12hfz37g51hrt.cloudfront.net/user/1428766/thumb/profile_1424420765.jpg"
+												onerror=";return false;" /> <span class="number">3.2</span>
+											</span>
+
+
+										</div>
+
+										<div class="detail-opener gradation"></div>
+										<div class="bottom"></div>
+										<div class="action-wrapper">
+											<div class="movie-title">다이노 타임</div>
+											<div class="rating">
+												<span class="watcha-star half left" data-value="0.5"></span><span
+													class="watcha-star half right" data-value="1"></span><span
+													class="watcha-star half left" data-value="1.5"></span><span
+													class="watcha-star half right" data-value="2"></span><span
+													class="watcha-star half left" data-value="2.5"></span><span
+													class="watcha-star half right" data-value="3"></span><span
+													class="watcha-star half left" data-value="3.5"></span><span
+													class="watcha-star half right" data-value="4"></span><span
+													class="watcha-star half left" data-value="4.5"></span><span
+													class="watcha-star half right" data-value="5"></span>
+											</div>
+
+											<div class="wish-comment">
+												<div class="wish">
+													<span class="icon"></span> 보고싶어요
+												</div>
+												<div class="comment">
+													<span class="icon"></span> <span class="text">코멘트 쓰기</span>
+												</div>
+											</div>
+											<div class="meh">관심없어요</div>
+
+
+										</div>
+									</div>
+
+
+
+								</div>
+								<div class="clear"></div>
+							</ul>
+						</div>
+					</div> <a class="view-all-link" href="/boxoffice">모두보기</a><span
+					class="prev-btn" style="display: none;">이전</span><span
+					class="next-btn">다음</span></li>
+
+				<li id="genre-section" class="genres responsive-mask section"><h3
+						class="title">장르별 추천</h3>
+					<div class="slider-wrapper">
+						<div class="vertical-list">
+							<ul class="grid-container"
+								style="position: relative; width: 1680px; height: 340px;">
+								<div class="genre card grid-1 hei-1 mini top-0 left-0"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/mevucc-8523a1832db669da4f9c.jpg?1370684728);">
+									<a href="/recommendation?genre=SF">
+										<div class="bg"></div> <span class="text">SF</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-1 left-0"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/ml55t2-d40ef326f4e9a2c4bb1d.jpg?1416207915);">
+									<a href="/recommendation?genre=가족">
+										<div class="bg"></div> <span class="text">가족</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-0 left-1"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/m5i704-f00d90db2ea28b0ea4d2.jpg?1370685050);">
+									<a href="/recommendation?genre=공포">
+										<div class="bg"></div> <span class="text">공포</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-1 left-1"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/my8qs8-c6bbc7006b066ee5ad05.jpg?1370684704);">
+									<a href="/recommendation?genre=다큐멘터리">
+										<div class="bg"></div> <span class="text">다큐멘터리</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-0 left-2"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/motei7-e33fc8f363c1f60e0084.jpg?1370697291);">
+									<a href="/recommendation?genre=드라마">
+										<div class="bg"></div> <span class="text">드라마</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-1 left-2"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/mc57ne-d9922c4d1f50716e57d1.jpg?1414577671);">
+									<a href="/recommendation?genre=로맨스/멜로">
+										<div class="bg"></div> <span class="text">로맨스/멜로</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-0 left-3"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/ma5rxk-cd9f0f2280a350f2d794.jpg?1370683951);">
+									<a href="/recommendation?genre=로맨틱 코미디">
+										<div class="bg"></div> <span class="text">로맨틱 코미디</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-1 left-3"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/mjhf1r-8aff0fb771cf7ab95e8a.jpg?1370699807);">
+									<a href="/recommendation?genre=범죄">
+										<div class="bg"></div> <span class="text">범죄</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-0 left-4"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/ms5fec-3cda7196108b47da24c7.jpg?1370683528);">
+									<a href="/recommendation?genre=스릴러">
+										<div class="bg"></div> <span class="text">스릴러</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-1 left-4"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/mvzdp0-31e344827f1cce9bc8b7.jpg?1370681645);">
+									<a href="/recommendation?genre=애니메이션">
+										<div class="bg"></div> <span class="text">애니메이션</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-0 left-5"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/m2vxj4-fda9399b0ac791a79952.jpg?1370697217);">
+									<a href="/recommendation?genre=액션">
+										<div class="bg"></div> <span class="text">액션</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-1 left-5"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/mynhon-7e2a38656aa90c480249.jpg?1370682992);">
+									<a href="/recommendation?genre=전쟁">
+										<div class="bg"></div> <span class="text">전쟁</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-0 left-6"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/myrr0v-bec9044978bad0aaf7e4.jpg?1370690300);">
+									<a href="/recommendation?genre=코미디">
+										<div class="bg"></div> <span class="text">코미디</span>
+									</a>
+								</div>
+								<div class="genre card grid-1 hei-1 mini top-1 left-6"
+									style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/m/m3smdg-865886edc4a056b1bbd4.jpg?1370697427);">
+									<a href="/recommendation?genre=판타지">
+										<div class="bg"></div> <span class="text">판타지</span>
+									</a>
+								</div>
+								<div class="clear"></div>
+							</ul>
+						</div>
+					</div> <a class="view-all-link" href="/recommendation">모두보기</a><span
+					class="prev-btn" style="display: none;">이전</span><span
+					class="next-btn">다음</span></li>
+			</ol>
+			<!-- // END sections-wrapper -->
+		</div>
+
+		<div id="watcha-tooltip" class=""
+			style="z-index: 10; left: 470.5px; top: 3190px; display: none;">
+			<div class="watcha-tooltip-content">관심없어요</div>
+			<div class="arrow" style="left: 25px;"></div>
+		</div>
+	</div>
+	<div id="toast-msg"></div>
+	<div id="account-setting-popup">
+		<div class="inner-shadow"></div>
+		<div class="photo-wrapper"
+			style="background-image: url(https://d12hfz37g51hrt.cloudfront.net/s/n_v1in1_blur/m7kgsf-e194a91274a527e716df.jpg?1370680413)">
+			<span class="user-photo"
+				style="background-image: url('https://d12hfz37g51hrt.cloudfront.net/user/1428766/original/profile_1424420765.jpg')">
+				<img alt="Ui_kit_78"
+				src="https://d12hfz37g51hrt.cloudfront.net/assets/masks/ui_kit_78-45011c57e1c8bfe8058cf97b45bfa019.png" />
+			</span>
+			<div class="name-and-upload">
+				<span class="name">허성욱<span id="upload-user-photo"
+					class="upload"><div class="qq-uploader">
+							<div class="qq-upload-drop-area" style="display: none;">
+								<span>Drop files here to upload</span>
+							</div>
+							<div class="qq-upload-button"
+								style="position: relative; overflow: hidden; direction: ltr;">
+								<div>Upload a file</div>
+								<input multiple="multiple" type="file" name="file"
+									style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;" />
+							</div>
+							<span class="qq-drop-processing"><span>Processing
+									dropped files...</span><span class="qq-drop-processing-spinner"></span></span>
+							<ul class="qq-upload-list"></ul>
+						</div></span></span>
+			</div>
+		</div>
+		<form>
+			<table>
+				<tbody>
+					<tr class="email">
+						<td class="title">이메일</td>
+						<td class="field">hswook93@gmail.com
+							<button class="change-email" data-password-initialized="false">변경하기</button>
+						</td>
+					</tr>
+					<tr class="nickname">
+						<td class="title">닉네임</td>
+						<td class="field"><input type="text" name="user[name]"
+							value="허성욱" />
+							<p class="desc">최소 2자, 최대 20글자까지 가능합니다.</p></td>
+					</tr>
+					<tr class="sns">
+						<td class="title">SNS 설정</td>
+						<td class="field">
+							<div class="fb">
+								<div class="icon-wrapper on" data-password-initialized="false">
+									<span class="switch"></span> <span class="icon"></span>
+								</div>
+								<span class="text">페이스북 계정 연동 해제하기</span> <input
+									id="use-timeline" name="user[use_timeline]" type="checkbox"
+									checked="" /> <label for="use-timeline">페이스북 타임라인에 게시하기</label>
+							</div>
+							<div class="twitter">
+								<div class="icon-wrapper ">
+									<span class="switch"></span> <span class="icon"></span>
+								</div>
+								<span class="text">트위터 계정 연동 하기</span>
+							</div>
+						</td>
+					</tr>
+					<tr class="subscribe">
+						<td class="title">이메일 구독</td>
+						<td class="field"><input id="subscribe-email"
+							name="user[mailing_update]" type="checkbox" checked="" /> <label
+							for="subscribe-email">왓챠의 업데이트 및 이벤트 소식</label></td>
+					</tr>
+					<tr class="reset_evals">
+						<td class="title">평가내역 초기화</td>
+						<td class="field">
+							<button class="reset_ims_btn password_not_init" type="button">초기화할
+								항목 선택하기</button>
+							<div class="reset_ims_box " style="opacity: 0; display: none;">
+
+								<div class="warning_text">초기화 후에는 복구 할 수 없습니다</div>
+								<input class="password_input" type="password"
+									name="password_input" placeholder="비밀번호 입력" />
+								<div class="checkbox_wrapper">
+									<div class="checkbox_item">
+										<input id="reset_wish" type="checkbox" name="reset_type[]"
+											value="wish" /> <label for="reset_wish">보고싶어요</label>
+									</div>
+									<div class="checkbox_item">
+										<input id="reset_eval" type="checkbox" name="reset_type[]"
+											value="eval" /> <label for="reset_eval">봤어요</label>
+									</div>
+									<div class="checkbox_item">
+										<input id="reset_review" type="checkbox" name="reset_type[]"
+											value="review" /> <label for="reset_review">코멘트</label>
+									</div>
+									<div class="checkbox_item">
+										<input id="reset_meh" type="checkbox" name="reset_type[]"
+											value="meh" /> <label for="reset_meh">관심없어요</label>
+									</div>
+								</div>
+
+								<p class="reset_msg"></p>
+								<div class="button_wrapper">
+									<button type="button" class="reset_cancel">취소</button>
+									<button type="button" class="reset_submit">확인</button>
+								</div>
+								<span id="box-arrow"></span>
+							</div>
+						</td>
+					</tr>
+					<tr class="set-interest-privacy">
+						<td class="title">공개범위 설정</td>
+						<td class="field">
+							<button class="btn" type="button">전체공개</button>
+							<div class="scope-box" style="opacity: 0; display: none;">
+								<div class="kind">평가 / 보고싶어요 / 관심없어요</div>
+								<div class="radio-wrapper">
+									<div class="radio-item checked">
+										<input id="allow-public" type="radio" checked=""
+											name="interest_privacy" value="0" /> <label
+											for="allow-public">
+											<dt>전체공개</dt>
+											<dd>왓챠의 모든 유저에게 공개합니다.</dd>
+										</label>
+									</div>
+									<div class="radio-item ">
+										<input id="allow-friends" type="radio" name="interest_privacy"
+											value="1" /> <label for="allow-friends">
+											<dt>친구공개</dt>
+											<dd>내가 팔로우하는 친구에게 공개합니다.</dd>
+										</label>
+									</div>
+									<div class="radio-item ">
+										<input id="allow-private" type="radio" name="interest_privacy"
+											value="2" /> <label for="allow-private">
+											<dt>비공개</dt>
+											<dd>아무에게도 공개하지 않습니다.</dd>
+										</label>
+									</div>
+								</div>
+								<div class="button_wrapper">
+									<button type="button" class="accessor_cancel">취소</button>
+									<button type="button" class="accessor_submit">확인</button>
+								</div>
+								<span class="box-arrow"></span>
+							</div>
+						</td>
+					</tr>
+					<tr class="password">
+						<td class="title">비밀번호 생성</td>
+						<td class="field"><input class="current"
+							name="password[password_ori]" type="password"
+							placeholder="기존 비밀번호" style="display: none;" /> <input
+							class="new" name="password[password_new]" type="password"
+							placeholder="새 비밀번호" /> <input class="confirm"
+							name="password[password_confirm]" type="password"
+							placeholder="새 비밀번호 확인" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<a href="#" type="button" class="deactivate">탈퇴하기</a>
+		<button class="submit">확인</button>
+		<button class="cancel">취소</button>
+		<div class="clear"></div>
+	</div>
+	<script type="text/javascript">
+		window.settingInstance = new Setting($('#account-setting-popup'));
+	</script>
+
+
+	<div id="footer">
+		<div class="wrapper responsive-mask">
+			<div class="upper">
+				<div class="name">frograms</div>
+
+				<div class="sns">
+					<a href="http://facebook.com/watcha.net" target="_blank" class="fb">페이스북</a>
+					<a href="http://twitter.com/watchamovie" target="_blank"
+						class="twitter">트위터</a> <a href="http://blog.naver.com/watchanet"
+						target="_blank" class="blog">블로그</a>
+				</div>
+			</div>
+
+			<div class="count-like-tweet">
+				<div class="count">
+					<div class="text">
+						<span class="star-icon"></span> <span class="number">202,834,067</span>
+						개의 별점 평가가 쌓이고 있습니다.
+					</div>
+				</div>
+
+				<div class="social_plugin_wrapper">
+					<div class="fb-like plugin fb_iframe_widget"
+						data-href="http://watcha.net" data-send="false"
+						data-layout="button_count" data-width="130"
+						data-show-faces="false" fb-xfbml-state="rendered"
+						fb-iframe-plugin-query="app_id=126765124079533&amp;container_width=100&amp;href=http%3A%2F%2Fwatcha.net%2F&amp;layout=button_count&amp;locale=ko_KR&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=130">
+						<span style="vertical-align: bottom; width: 96px; height: 20px;"><iframe
+								name="f238fdcaf8" width="130px" height="1000px" frameborder="0"
+								allowtransparency="true" allowfullscreen="true" scrolling="no"
+								title="fb:like Facebook Social Plugin"
+								src="https://www.facebook.com/v2.2/plugins/like.php?app_id=126765124079533&amp;channel=https%3A%2F%2Fs-static.ak.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D41%23cb%3Df3d6774ec4%26domain%3Dwatcha.net%26origin%3Dhttps%253A%252F%252Fwatcha.net%252Ff1567c8398%26relation%3Dparent.parent&amp;container_width=100&amp;href=http%3A%2F%2Fwatcha.net%2F&amp;layout=button_count&amp;locale=ko_KR&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=130"
+								style="border: none; visibility: visible; width: 96px; height: 20px;"
+								class=""></iframe></span>
+					</div>
+					<iframe id="twitter-widget-0" scrolling="no" frameborder="0"
+						allowtransparency="true"
+						src="https://platform.twitter.com/widgets/tweet_button.b169aa788731255dd55f1bb243b660e1.en.html#_=1432318123872&amp;count=horizontal&amp;dnt=false&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=https%3A%2F%2Fwatcha.net%2F&amp;related=watchamovie&amp;size=m&amp;text=%EB%82%B4%20%EC%B7%A8%ED%96%A5%EC%9D%84%20%EB%B6%84%EC%84%9D%ED%95%98%EB%8A%94%20%EC%98%81%ED%99%94%20%EC%B6%94%EC%B2%9C%20-%20%EC%99%93%EC%B1%A0!%20%EC%98%88%EC%A0%84%EC%97%90%20%EB%B3%B8%20%EC%98%81%ED%99%94%EC%97%90%20%EB%B3%84%EC%A0%90%EB%A7%8C%20%EB%A7%A4%EA%B8%B0%EB%A9%B4%2C%20%EC%99%93%EC%B1%A0%EA%B0%80%20%EB%82%B4%20%EC%B7%A8%ED%96%A5%EC%9D%84%20%EB%B6%84%EC%84%9D%ED%95%B4%EC%84%9C%20%EC%9E%90%EB%8F%99%EC%9C%BC%EB%A1%9C%20%EC%98%81%ED%99%94%EB%A5%BC%20%EC%B6%94%EC%B2%9C%ED%95%B4%EB%93%9C%EB%A0%A4%EC%9A%94!&amp;url=http%3A%2F%2Fwatcha.net"
+						class="twitter-share-button plugin twitter-tweet-button twitter-share-button twitter-count-horizontal"
+						title="Twitter Tweet Button" data-twttr-rendered="true"
+						style="position: static; visibility: visible; width: 97px; height: 20px;"></iframe>
+				</div>
+			</div>
+
+			<div class="info">사업자명 (주식회사 프로그램스) 사업자번호 (211-88-66013)
+				Copyright © 2014 by Frograms. Inc. All rights reserved</div>
+		</div>
+	</div>
+	<script>
+		!function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (!d.getElementById(id)) {
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "https://platform.twitter.com/widgets.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}
+		}(document, "script", "twitter-wjs");
+	</script>
+
+	<script type="text/javascript">
+		adroll_adv_id = "TQL7PFOBG5ES5EZEXO4NRM";
+		adroll_pix_id = "GZKZVF5HHBDGHN5OY6OVXG";
+		(function() {
+			var oldonload = window.onload;
+			window.onload = function() {
+				__adroll_loaded = true;
+				var scr = document.createElement("script");
+				var host = (("https:" == document.location.protocol) ? "https://s.adroll.com"
+						: "http://a.adroll.com");
+				scr.setAttribute('async', 'true');
+				scr.type = "text/javascript";
+				scr.src = host + "/j/roundtrip.js";
+				((document.getElementsByTagName('head') || [ null ])[0] || document
+						.getElementsByTagName('script')[0].parentNode)
+						.appendChild(scr);
+				if (oldonload) {
+					oldonload()
+				}
+			};
+		}());
+	</script>
+
+
+
+	<div data-html2canvas-ignore="true" class="uv-icon uv-bottom-left">
+		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+			xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			width="39px" height="39px" viewBox="0 0 39 39"
+			enable-background="new 0 0 39 39" xml:space="preserve">
+<g>
+	<path class="uv-bubble-background" fill="rgba(46, 49, 51, 0.6)"
+				d="M31.425,34.514c-0.432-0.944-0.579-2.007-0.591-2.999c4.264-3.133,7.008-7.969,7.008-13.409
+		C37.842,8.658,29.594,1,19.421,1S1,8.658,1,18.105c0,9.446,7.932,16.79,18.105,16.79c1.845,0,3.94,0.057,5.62-0.412
+		c0.979,1.023,2.243,2.3,2.915,2.791c3.785,2.759,7.571,0,7.571,0S32.687,37.274,31.425,34.514z"
+				style="fill: rgb(255, 56, 46);"></path>
+	<g>
+		<g>
+			<path class="uv-bubble-foreground" fill="#FFFFFF"
+				d="M16.943,19.467c0-3.557,4.432-3.978,4.432-6.058c0-0.935-0.723-1.721-2.383-1.721
+				c-1.508,0-2.773,0.725-3.709,1.87l-2.441-2.743c1.598-1.9,4.01-2.924,6.602-2.924c3.891,0,6.271,1.959,6.271,4.765
+				c0,4.4-5.037,4.732-5.037,7.265c0,0.481,0.243,0.994,0.574,1.266l-3.316,0.965C17.303,21.459,16.943,20.522,16.943,19.467z
+				 M16.943,26.19c0-1.326,1.114-2.441,2.44-2.441c1.327,0,2.442,1.115,2.442,2.441c0,1.327-1.115,2.441-2.442,2.441
+				C18.058,28.632,16.943,27.518,16.943,26.19z"
+				style="fill: rgb(255, 255, 255);"></path>
+		</g>
+	</g>
+</g>
+</svg>
 	</div>
 </body>
 </html>

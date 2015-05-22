@@ -24,3 +24,5 @@ create table if not exists tag (
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp
 );
+
+insert into user (email, pw, created_at, updated_at) values ('1234@1234.1324', '1234', now(), now());
