@@ -91,8 +91,15 @@
 									$image.attr("src"));
 
 							$popup.prependTo("body");
-							$popup.show();
-							$("body").bind("touchmove", handler);
+							$popup.fadeIn();
+							
+							$(document).mouseup(function(e) {
+								if ($(".movie-detail-container").has(e.target).length === 0) {
+									$popup.fadeOut(function() {
+										$popup.remove();
+									});
+								}
+							});
 
 							//댓글 다는 기능
 							$("#comment-register")
@@ -112,16 +119,6 @@
 
 												$(".review-list").prepend($cli);
 											});
-
-							//아래는, 팝업 바깥 클릭 시 파업 없애주는 기능
-							$("html").click(function() {
-								$popup.fadeout();
-								$popup.remove();
-								$("body").unbind("touchmove", handler);
-							});
-							$('.movie-detail-container').click(function(event) {
-								event.stopPropagation();
-							});
 						});
 
 		$(".page-num").click(function() {
