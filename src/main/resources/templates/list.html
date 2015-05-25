@@ -50,62 +50,111 @@
 	type="text/javascript"></script>
 
 <script type="text/javascript" th:inline="javascript">
-/*<![CDATA[*/
+	/*<![CDATA[*/
 	$(function() {
-		
+
 		var handler = function(e) {
 			e.preventDefault();
 		}
 		
-		$("#setting-btn").click(function() {
-			var $popup = $("#account-setting-popup").clone();
-			var $overlay = $popup.find(".overlay");
-			
-			$popup.css("margin-left", ($(window).width() - $popup.width()) / 2);
+		$(".genre").click(function() {
+			$list = $(".genre-list");
+			$list.css("left", $(this).position().left - $list.width()/2);
 
-			$popup.prependTo("body");
-			$popup.show();
-			$("body").bind("touchmove", handler);
+			$list.show();
 			
-			$("button.cancel").click(function() {
-				$popup.fadeout();
-				$popup.remove();
-			});
+			$(document).mouseup(function(e) {
+				if ($list.has(e.target).length === 0) {
+					$list.hide();
+				}
+			})
+		});
+		$(".nation").click(function() {
+			$list = $(".nation-list");
+			$list.css("left", $(this).position().left - $list.width()/2);
+
+			$list.show();
+			
+			$(document).mouseup(function(e) {
+				if ($list.has(e.target).length === 0) {
+					$list.hide();
+				}
+			})
+		});
+		$(".year").click(function() {
+			$list = $(".year-list");
+			$list.css("left", $(this).position().left - $list.width()/2);
+
+			$list.show();
+			
+			$(document).mouseup(function(e) {
+				if ($list.has(e.target).length === 0) {
+					$list.hide();
+				}
+			})
 		});
 
+		$("#setting-btn").click(
+				function() {
+					var $popup = $("#account-setting-popup").clone();
+					var $overlay = $popup.find(".overlay");
+
+					$popup.css("margin-left", ($(window).width() - $popup
+							.width()) / 2);
+
+					$popup.prependTo("body");
+					$popup.show();
+					$("body").bind("touchmove", handler);
+
+					$("button.cancel").click(function() {
+						$popup.hide();
+						$popup.remove();
+					});
+				});
 
 		//팝업 띄우는 기능
-		$(".movie-card").click(function() {
-			var $popup = $("#watcha-popup-wrapper").clone();
-			var $overlay = $popup.find(".overlay");
-			var $image = $(this).find("img.poster");
-			$popup.find("img.poster").attr("src", $image.attr("src"));
+		$(".movie-card")
+				.click(
+						function() {
+							var $popup = $("#watcha-popup-wrapper").clone();
+							var $overlay = $popup.find(".overlay");
+							var $image = $(this).find("img.poster");
+							$popup.find("img.poster").attr("src",
+									$image.attr("src"));
 
-			$popup.prependTo("body");
-			$popup.show();
-			$("body").bind("touchmove", handler);
+							$popup.prependTo("body");
+							$popup.show();
+							$("body").bind("touchmove", handler);
 
-			//댓글 다는 기능
-			$("#comment-register").click(function() {
-				var now = new Date();
-				$cli = $(".comment-li").first().clone();
-				$cli.find(".name").text(/*[[${#httpServletRequest.remoteUser}]]*/);
-				$cli.find(".updated-at").text(now.toString());
-				$cli.find(".text").text($("#comment-text").val());
+							//댓글 다는 기능
+							$("#comment-register")
+									.click(
+											function() {
+												var now = new Date();
+												$cli = $(".comment-li").first()
+														.clone();
+												$cli
+														.find(".name")
+														.text(/*[[${#httpServletRequest.remoteUser}]]*/);
+												$cli.find(".updated-at").text(
+														now.toString());
+												$cli.find(".text").text(
+														$("#comment-text")
+																.val());
 
-				$(".review-list").prepend($cli);
-			});
+												$(".review-list").prepend($cli);
+											});
 
-			//아래는, 팝업 바깥 클릭 시 파업 없애주는 기능
-			$("html").click(function() {
-				$popup.fadeout();
-				$popup.remove();
-				$("body").unbind("touchmove", handler);
-			});
-			$('.movie-detail-container').click(function(event){
-			    event.stopPropagation();
-			});
-		});
+							//아래는, 팝업 바깥 클릭 시 파업 없애주는 기능
+							$("html").click(function() {
+								$popup.fadeout();
+								$popup.remove();
+								$("body").unbind("touchmove", handler);
+							});
+							$('.movie-detail-container').click(function(event) {
+								event.stopPropagation();
+							});
+						});
 
 		$(".page-num").click(function() {
 			var count = 0;
@@ -119,7 +168,7 @@
 			$("#page" + pagenum).fadeIn();
 		});
 	});
-/*]]>*/
+	/*]]>*/
 </script>
 
 </head>
@@ -269,28 +318,6 @@
 							2011~2015 <span class="check-icon"></span>
 						</li>
 					</ul>
-
-
-					<ul class="filter-item-list clearfix reason-list"
-						data-category="reason">
-						<li class="filter-item" data-filter-value="all">모든 영화 <span
-							class="check-icon"></span>
-						</li>
-						<li class="filter-item" data-filter-value="minimumRating">예상
-							별점이 가장 높은 영화 <span class="check-icon"></span>
-						</li>
-						<li class="filter-item" data-filter-value="hasDirector">좋아할
-							만한 감독이 만든 영화 <span class="check-icon"></span>
-						</li>
-						<li class="filter-item" data-filter-value="hasActor">좋아할 만한
-							배우가 출연한 영화 <span class="check-icon"></span>
-						</li>
-						<li class="filter-item" data-filter-value="hasSimilar">높게 평가한
-							영화와 비슷한 영화 <span class="check-icon"></span>
-						</li>
-					</ul>
-
-
 				</div>
 				<ul id="filter-tag-list">
 				</ul>
@@ -1562,15 +1589,15 @@
 
 	</div>
 	<div id="toast-msg"></div>
-	<div id="account-setting-popup" style="position:absolute; width:491px; display:none; top:50px; z-index:100">
+	<div id="account-setting-popup"
+		style="position: absolute; width: 491px; display: none; top: 50px; z-index: 100">
 		<div class="inner-shadow"></div>
 		<form>
 			<table>
 				<tbody>
 					<tr class="email">
 						<td class="title">이메일</td>
-						<td class="field">hswook93@gmail.com
-						</td>
+						<td class="field">hswook93@gmail.com</td>
 					</tr>
 
 					<tr class="password">
@@ -1760,12 +1787,13 @@
 
 
 						<h5 class="all-review heading">
-							코멘트
-							<input type="text" id="comment-text" style="width:80%; margin-left:20px;"/>
-							<img id="comment-register" style="float:right; cursor:pointer;" src="img/register.jpg" />
+							코멘트 <input type="text" id="comment-text"
+								style="width: 80%; margin-left: 20px;" /> <img
+								id="comment-register" style="float: right; cursor: pointer;"
+								src="img/register.jpg" />
 						</h5>
 						<ul class="all-review review-list">
-							<li class="comment-li" ><div class="blur-area">
+							<li class="comment-li"><div class="blur-area">
 									<a href="/users/ddycFitNdlYY/comments" class="user-pic"
 										onclick="closePopupBeforeLeave(event);"><img
 										src="img/profile.jpg" /></a>
@@ -1790,7 +1818,7 @@
 										onclick="removeSpoilerCommentBlur(this);return false;">스포일러
 										있어요!</div>
 								</div></li>
-							<li class="comment-li" ><div class="blur-area">
+							<li class="comment-li"><div class="blur-area">
 									<a href="/users/evDwaREOvyAO/comments" class="user-pic"
 										onclick="closePopupBeforeLeave(event);"><img
 										src="img/profile.jpg" /></a>

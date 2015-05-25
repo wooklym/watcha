@@ -16446,3 +16446,15 @@ background-position
 		margin-top: 500px
 	}
 }
+
+.predicted-rating {
+	display:none;
+}
+
+.action-wrapper {
+	display:none;
+}
+
+.bottom {
+	display:none;
+}
