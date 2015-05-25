@@ -2,53 +2,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" href="/favicon.ico" />
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="http://watcha.net/favicon.ico?v=2" rel="shortcut icon"
+	type="image/vnd.microsoft.icon" />
+<title>왓챠 :: 오늘 영화도 부탁해!</title>
 
-<meta http-equiv="Content-Script-Type" content="text/javascript" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<meta name="google" value="notranslate" />
-<title>추천영화 :: 왓챠</title>
-<meta content="내 취향에 맞는 영화들을 발견하세요. 그리고 마음에 드는 영화는 보고싶어요 를 눌러 담아놓으세요."
-	name="description" />
-<meta content="@watchamovie" name="twitter:creator" />
-<meta content="com.frograms.watcha" name="twitter:app:id:googleplay" />
-<meta content="644185507" name="twitter:app:id:ipad" />
-<meta content="644185507" name="twitter:app:id:iphone" />
-<meta content="watcha://" name="twitter:app:url:googleplay" />
-<meta content="watcha://" name="twitter:app:url:ipad" />
-<meta content="summary_large_image" name="twitter:card" />
-<meta content="@watchamovie" name="twitter:site" />
-<meta content="watcha://" name="twitter:app:url:iphone" />
-<meta content="watcha.net" name="twitter:domain" />
-<meta content="왓챠 - 영화관 갈 때 필수앱 (영화추천/무료시사회)"
-	name="twitter:app:name:googleplay" />
-<meta content="영화관 갈 때 필수앱 - 왓챠(맞춤 영화 추천)" name="twitter:app:name:ipad" />
-<meta content="영화관 갈 때 필수앱 - 왓챠(맞춤 영화 추천)"
-	name="twitter:app:name:iphone" />
-<meta content="126765124079533" property="fb:app_id" />
-<meta
-	content="주변 극장 시간표를 한 눈에 비교할 수 있고 TV와 모바일에서 바로 볼 수 있는 무료 영화도 정말 많아요."
-	property="og:description" />
-<meta content="https://watcha.net/watcha_icon_200x200_new.png"
-	property="og:image" />
-<meta content="https://watcha.net/recommendation" property="og:url" />
-<meta content="영화 필수앱 왓챠! - 영화추천/무료영화/극장시간표" property="og:title" />
-<meta content="website" property="og:type" />
-
-<link href="css/list.css" media="screen" rel="stylesheet"
-	type="text/css" />
-
+<link
+	href="css/list.css" media="screen" rel="stylesheet" type="text/css" />
 <meta content="authenticity_token" name="csrf-param" />
-<meta content="TabCr9Z5l6l0kQFAYAPdc4tPUZBer9NdIJix6pQLKQU="
+<meta content="jCI8NpYGRmu8fKRBCeGT9pPiSZzPf6iX94kUOENuebY="
 	name="csrf-token" />
 
-<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-<script
-	src="https://d12hfz37g51hrt.cloudfront.net/assets/application/home-bd6f3867b4347c1c4f7d11728fa60dcb.js"
-	type="text/javascript"></script>
 
+
+<script
+	src="js/main.js"
+	type="text/javascript"></script>
 <script type="text/javascript" th:inline="javascript">
 	/*<![CDATA[*/
 	$(function() {
@@ -94,7 +62,7 @@
 			})
 		});
 
-		$("#setting-btn").click(
+		$(".seadftting").click(
 				function() {
 					var $popup = $("#account-setting-popup").clone();
 					var $overlay = $popup.find(".overlay");
@@ -210,7 +178,7 @@
 							<ul>
 								<li><a href="/users/J3lPtM2HnnJs/wishlist">영화보관함</a> <span
 									class="count">75</span></li>
-								<li class="divide-line"><a href="#" id="setting-btn">설정</a>
+								<li class="divide-line"><a href="#" class="setting">설정</a>
 								</li>
 								<li><a href="/logout">로그아웃</a></li>
 							</ul>
@@ -1589,9 +1557,9 @@
 
 	</div>
 	<div id="toast-msg"></div>
-	<div id="account-setting-popup"
-		style="position: absolute; width: 491px; display: none; top: 50px; z-index: 100">
+	<div id="account-setting-popup">
 		<div class="inner-shadow"></div>
+
 		<form>
 			<table>
 				<tbody>
@@ -1610,6 +1578,7 @@
 							name="password[password_confirm]" type="password"
 							placeholder="새 비밀번호 확인" /></td>
 					</tr>
+
 				</tbody>
 			</table>
 		</form>
@@ -1618,8 +1587,9 @@
 		<button class="cancel">취소</button>
 		<div class="clear"></div>
 	</div>
-
-
+	<script type="text/javascript">
+		window.settingInstance = new Setting($('#account-setting-popup'));
+	</script>
 
 	<div id="footer">
 		<div class="wrapper responsive-mask">
@@ -1734,30 +1704,6 @@
 
 							</div>
 						</div>
-						<script type="text/javascript">
-							var movieDetailWrapper = $('.movie-detail.mqmrjg.detail-pop')
-							var detailWatchaCard = movieDetailWrapper
-									.find('#detailWatchaCard')
-							$
-									.ajax(
-											{
-												url : '/movie/mqmrjg.json',
-												success : function(movie) {
-													card = new MovieCard(
-															'poster_movie_card',
-															'1x1',
-															movie.items[0],
-															{
-																preventDetailPopup : true,
-																hidePredictedRating : true
-															});
-													0
-													detailWatchaCard
-															.append(card.el);
-													detailWatchaCard.show();
-												}
-											})
-						</script>
 						<div class="info">
 							<div class="title" itemprop="itemreviewed">안녕,헤이즐</div>
 						</div>
@@ -1962,15 +1908,6 @@
 								class="eng-name">Willem Dafoe</span></li>
 						</ul>
 
-
-						<!--
-      개별 영화에 따른 공식 SNS 로 연결
-      <h5>공식 SNS</h5>
-      <ul>
-        <li class="twitter"><a href="http://twitter.com/watchamovie" target="_blank">트위터</a></li>
-        <li class="facebook"><a href="http://facebook.com/watcha.net" target="_blank">페이스북</a></li>
-      </ul>
-      -->
 					</div>
 					<div class="clear"></div>
 				</div>
