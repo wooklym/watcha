@@ -38,6 +38,6 @@ public class UserController {
 		user.setPw(password);
 		userService.add(user);
 		System.out.println(email + "를 사용자 추가했습니다.");
-		return "home";
+		return "login";
 	}
 }

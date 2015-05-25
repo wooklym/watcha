@@ -13926,3 +13926,8 @@ svg.rating-chart path.area {
 	top: 10px;
 	right: 20px;
 	cursor:pointer;
+}
+
+.predicted-rating {
+	display:none;
+}
